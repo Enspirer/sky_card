@@ -1,6 +1,6 @@
 # Sky Card
 
-CamCard is the easiest app to manage and exchange business cards, the perfect fit for sales people, entrepreneurs, business developers or marketing experts, and anyone who want to be one.
+SkyCard is the easiest app to manage and exchange business cards, the perfect fit for sales people, entrepreneurs, business developers or marketing experts, and anyone who want to be one.
 
 ## Features
 
@@ -13,3 +13,5 @@ CamCard is the easiest app to manage and exchange business cards, the perfect fi
 * Navigate to contact addresses in Map
 * Access contact information across multiple devices
 * Manage contacts from all over the world with 17 recognition languages
+
+
