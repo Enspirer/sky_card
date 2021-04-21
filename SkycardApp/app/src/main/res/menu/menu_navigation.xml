@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/naviHome"
+        android:title="home"
+        android:icon="@drawable/ic_home"/>
+    <item
+        android:id="@+id/naviCon"
+        android:title="My Contacts"
+        android:icon="@drawable/ic_mycards"/>
+    <item
+        android:id="@+id/naviAddacrd"
+        android:title="Add card"
+        android:icon="@drawable/ic_addcard"/>
+    <item
+        android:id="@+id/naviMycards"
+        android:title="My cards"
+        android:icon="@drawable/ic_card_holder"/>
+    <item
+        android:id="@+id/naviShare"
+        android:title="Share"
+        android:icon="@drawable/ic_sharecard"/>
+
+
+
+</menu>

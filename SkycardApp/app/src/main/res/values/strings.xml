@@ -15,15 +15,12 @@
     <string name="sky_network">Sky Network</string>
     <string name="share_cards">Share Cards</string>
     <string name="todo">TODO</string>
-    <string name="todo">TODO</string>
-    <string name="todo">TODO</string>
-    <string name="todo">TODO</string>
     <string name="add_cards">Add cards</string>
     <string name="my_cards">My cards</string>
     <string name="card_holder">Card Holder</string>
-    <string name="todo">TODO</string>
-    <string name="todo">TODO</string>
     <string name="cardholder" />
     <string name="share">share</string>
     <string name="holder">holder</string>
+    <string name="sky_news">Sky News</string>
+    <string name="skynewsimages">skynewsimages</string>
 </resources>
