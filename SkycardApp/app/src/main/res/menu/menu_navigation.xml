@@ -3,11 +3,11 @@
 
     <item
         android:id="@+id/naviHome"
-        android:title="home"
+        android:title=""
         android:icon="@drawable/ic_home"/>
     <item
         android:id="@+id/naviCon"
-        android:title="My Contacts"
+        android:title=""
         android:icon="@drawable/ic_mycards"/>
     <item
         android:id="@+id/naviAddacrd"

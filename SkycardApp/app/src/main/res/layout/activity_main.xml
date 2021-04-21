@@ -33,7 +33,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_launcher_foreground"
-                android:contentDescription="@string/skynewsimages"/>
+                android:contentDescription="@string/skynewsimages" />
 
             <!-- Scrollable content -->
         </androidx.core.widget.NestedScrollView>
@@ -281,7 +281,7 @@
         <TextView
             android:id="@+id/tvskyNews"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="20dp"
             android:layout_below="@+id/gridView"
             android:layout_marginTop="450dp"
             android:text="@string/sky_news"/>
@@ -297,5 +297,15 @@
     app:itemIconTint="@drawable/selector"
     app:menu="@menu/menu_navigation"
     android:layout_alignParentBottom="true"/>
+
+        <ImageView
+            android:id="@+id/imageViewlogo"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            app:layout_anchorGravity="top|center"
+            app:srcCompat="@mipmap/sky_card_logo_foreground"
+            android:contentDescription="@string/skycardlogo"
+            android:layout_centerHorizontal="true"/>
+
 
     </RelativeLayout>
