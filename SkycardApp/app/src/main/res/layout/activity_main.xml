@@ -55,7 +55,8 @@
             android:columnCount="3"
             android:padding="10dp"
             android:rowCount="2"
-            android:paddingLeft="10dp">
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp">
 
             <androidx.cardview.widget.CardView
                 android:layout_width="wrap_content"
@@ -66,7 +67,8 @@
                 android:layout_columnWeight="1"
                 android:layout_marginBottom="10dp"
                 app:cardCornerRadius="0dp"
-                app:cardElevation="8dp">
+                app:cardElevation="8dp"
+                tools:targetApi="lollipop">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -79,12 +81,13 @@
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/ic_group_25" />
+                        android:src="@drawable/ic_addcard"
+                        android:clickable="true"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Add cards"
+                        android:text="@string/add_cards"
                         android:textAlignment="center"
                         android:textStyle="bold" />
                 </LinearLayout>
@@ -111,12 +114,14 @@
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/ic_group_25" />
+                        android:src="@drawable/ic_card_holder"
+                        android:contentDescription="@string/cardholder"
+                        android:clickable="true"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Card Holder"
+                        android:text="@string/card_holder"
                         android:textAlignment="center"
                         android:textStyle="bold" />
                 </LinearLayout>
@@ -144,12 +149,14 @@
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/ic_group_7" />
+                        android:src="@drawable/ic_mycards"
+                        android:contentDescription="@string/my_cards"
+                        android:clickable="true"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="My cards"
+                        android:text="@string/my_cards"
                         android:textAlignment="center"
                         android:textStyle="bold" />
                 </LinearLayout>
@@ -176,12 +183,14 @@
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/ic_path_6" />
+                        android:src="@drawable/ic_skydaily"
+                        android:contentDescription="@string/sky_daily"
+                        android:clickable="true"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Sky Daily"
+                        android:text="@string/sky_daily"
                         android:textAlignment="center"
                         android:textStyle="bold" />
                 </LinearLayout>
@@ -197,7 +206,8 @@
                 android:layout_columnWeight="1"
                 android:layout_marginTop="10dp"
                 app:cardCornerRadius="1dp"
-                app:cardElevation="1dp">
+                app:cardElevation="1dp"
+                tools:targetApi="lollipop">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -209,12 +219,14 @@
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/ic_path_6" />
+                        android:src="@drawable/ic_skynetwork"
+                        android:contentDescription="@string/sky_network"
+                        android:clickable="true"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Sky Network"
+                        android:text="@string/sky_network"
                         android:textAlignment="center"
                         android:textStyle="bold" />
                 </LinearLayout>
@@ -229,7 +241,8 @@
                 android:layout_columnWeight="1"
                 android:layout_marginTop="10dp"
                 app:cardCornerRadius="1dp"
-                app:cardElevation="1dp">
+                app:cardElevation="1dp"
+                tools:targetApi="lollipop">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -241,12 +254,15 @@
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/ic_path_6" />
+                        android:src="@drawable/ic_sharecard"
+                        android:contentDescription="@string/share_cards"
+                        android:clickable="true"
+                        android:focusable="true" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Share Cards"
+                        android:text="@string/share_cards"
                         android:textAlignment="center"
                         android:textStyle="bold" />
                 </LinearLayout>
@@ -256,7 +272,7 @@
             style="@style/Widget.MaterialComponents.BottomAppBar"
             android:id="@+id/bottomAppBar"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="70dp"
             android:layout_gravity="bottom"
             app:hideOnScroll="true"
             app:backgroundTint="@color/white"
@@ -270,12 +286,14 @@
             app:hideOnScroll="true"
             app:rippleColor="@color/white"
             android:backgroundTint="@color/white"
-            app:srcCompat="@drawable/ic_baseline_add_24"
             app:layout_anchor="@id/bottomAppBar"
             app:fabAlignmentMode="center"
             app:fabCradleMargin="16dp"
             app:fabCradleRoundedCornerRadius="20dp"
-            tools:ignore="VectorDrawableCompat" />
+            tools:ignore="VectorDrawableCompat"
+            android:focusable="true"
+            android:contentDescription="@string/todo"
+            tools:targetApi="lollipop" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
