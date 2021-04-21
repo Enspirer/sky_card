@@ -1,0 +1,24 @@
+<resources>
+
+    <style name="Widget.Theme.MyApplication.ActionBar.Fullscreen" parent="Widget.AppCompat.ActionBar">
+        <item name="android:background">@color/black_overlay</item>
+    </style>
+
+    <style name="Widget.Theme.MyApplication.ButtonBar.Fullscreen" parent="">
+        <item name="android:background">@color/black_overlay</item>
+    </style>
+
+    <style name="AppTheme" parent="Theme.MyApplication">
+        <item name="android:actionButtonStyle">@style/MyActionButtonStyle</item>
+    </style>
+
+    <style name="MyActionButtonStyle" parent="Theme.MyApplication">
+        <item name="android:minWidth">20dip</item>
+        <item name="android:padding">0dip</item>
+    </style>
+
+    <style name="HeaderBar">
+        <item name="android:background">#FDFDFD</item>
+    </style>
+
+</resources>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    
+    <item
+        android:id="@+id/homeBtn"
+        android:title="Home"
+        android:icon="@drawable/ic_home"
+        app:showAsAction="always" />
+
+        <item
+            android:id="@+id/mycardsBtn"
+            android:title="My Cards"
+            android:icon="@drawable/ic_mycards"
+            app:showAsAction="always" />
+        <item
+            android:id="@+id/cardholderBtn"
+            android:title="@string/holder"
+            android:icon="@drawable/ic_card_holder"
+            app:showAsAction="always" />
+        <item
+            android:id="@+id/shareBtn"
+            android:title="@string/share"
+            android:icon="@drawable/ic_sharecard"
+            app:showAsAction="always"/>
+
+</menu>
