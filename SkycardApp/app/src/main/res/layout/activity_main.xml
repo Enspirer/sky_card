@@ -19,7 +19,8 @@
             app:menu="@menu/top_app_bar"
             android:backgroundTint="@color/white"
             app:navigationIcon="@drawable/ic_baseline_menu_24"
-            style="@style/Widget.MaterialComponents.Toolbar.Primary" />
+            style="@style/Widget.MaterialComponents.Toolbar.Primary"
+            tools:targetApi="lollipop" />
 
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
@@ -91,7 +92,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:src="@drawable/ic_addcard"
-                        android:clickable="true"/>
+                        android:clickable="true"
+                        android:contentDescription="TODO"
+                        android:focusable="true" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -111,7 +114,8 @@
                 android:layout_columnWeight="1"
                 android:layout_marginBottom="10dp"
                 app:cardCornerRadius="0dp"
-                app:cardElevation="8dp">
+                app:cardElevation="8dp"
+                tools:targetApi="lollipop">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -125,7 +129,8 @@
                         android:layout_height="wrap_content"
                         android:src="@drawable/ic_card_holder"
                         android:contentDescription="@string/cardholder"
-                        android:clickable="true"/>
+                        android:clickable="true"
+                        android:focusable="true" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -146,7 +151,8 @@
                 android:layout_columnWeight="1"
                 android:layout_marginBottom="10dp"
                 app:cardCornerRadius="0dp"
-                app:cardElevation="8dp">
+                app:cardElevation="8dp"
+                tools:targetApi="lollipop">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -160,7 +166,8 @@
                         android:layout_height="wrap_content"
                         android:src="@drawable/ic_mycards"
                         android:contentDescription="@string/my_cards"
-                        android:clickable="true"/>
+                        android:clickable="true"
+                        android:focusable="true" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -180,7 +187,8 @@
                 android:layout_columnWeight="1"
                 android:layout_marginTop="10dp"
                 app:cardCornerRadius="0dp"
-                app:cardElevation="8dp">
+                app:cardElevation="8dp"
+                tools:targetApi="lollipop">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -194,7 +202,8 @@
                         android:layout_height="wrap_content"
                         android:src="@drawable/ic_skydaily"
                         android:contentDescription="@string/sky_daily"
-                        android:clickable="true"/>
+                        android:clickable="true"
+                        android:focusable="true" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -230,7 +239,8 @@
                         android:layout_height="wrap_content"
                         android:src="@drawable/ic_skynetwork"
                         android:contentDescription="@string/sky_network"
-                        android:clickable="true"/>
+                        android:clickable="true"
+                        android:focusable="true" />
 
                     <TextView
                         android:layout_width="wrap_content"
