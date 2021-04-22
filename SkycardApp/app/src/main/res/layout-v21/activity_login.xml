@@ -112,13 +112,14 @@
                 android:backgroundTint="#1B9DFD"
                 android:clickable="true"
                 android:padding="10dp"
-                android:text="Log in" />
+                android:text="@string/log_in"
+                android:focusable="true" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="or" />
+                android:text="@string/or" />
 
 
             <Button
@@ -130,7 +131,8 @@
                 android:backgroundTint="#FFFFFF"
                 android:clickable="true"
                 android:padding="10dp"
-                android:text="Sign Up" />
+                android:text="@string/sign_up"
+                android:focusable="true" />
 
 
         </LinearLayout>

@@ -13,9 +13,9 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
+            android:layout_height="wrap_content"
             android:layout_marginTop="40dp"
+            android:orientation="vertical"
             android:padding="45dp">
 
             <ImageView
@@ -23,8 +23,8 @@
                 android:layout_height="145dp"
                 android:layout_gravity="center"
                 android:layout_marginBottom="50dp"
-                app:srcCompat="@mipmap/sky_card_logo_foreground"
-                android:contentDescription="@string/signuplogo">
+                android:contentDescription="@string/signuplogo"
+                app:srcCompat="@mipmap/sky_card_logo_foreground">
 
             </ImageView>
 
@@ -32,7 +32,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="40dp"
-                android:text="Create Account" />
+                android:text="@string/create_account"
+                android:includeFontPadding="true"/>
 
 
             <TextView
@@ -43,16 +44,17 @@
                 android:id="@+id/tvName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Name" />
+                android:text="@string/name"
+                android:includeFontPadding="true"/>
 
             <EditText
                 android:id="@+id/etName"
                 style="@style/EditLoginTextStyle"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/tvEmail"
+                android:layout_height="35dp"
                 android:background="@drawable/edittext_top_curve_gray"
-                android:inputType="text" />
+                android:inputType="text"
+                android:autofillHints="" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -62,17 +64,18 @@
                 android:id="@+id/tvEmail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Email" />
+                android:text="@string/email" />
 
 
             <EditText
                 android:id="@+id/etEmail"
                 style="@style/EditLoginTextStyle"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/tvEmail"
+                android:layout_height="35dp"
                 android:background="@drawable/edittext_top_curve_gray"
-                android:inputType="textEmailAddress" />
+                android:inputType="textEmailAddress"
+                android:autofillHints=""/>
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
@@ -80,21 +83,30 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Password" />
+                android:text="@string/password" />
 
 
-            <EditText
-                android:id="@+id/etPassword"
-                style="@style/EditLoginTextStyle"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/etPasswordLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/edittext_bottom_curve_gray"
-                android:ems="10"
-                android:inputType="textPassword" />
+                app:passwordToggleEnabled="true">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etPassword"
+                    style="@style/EditLoginTextStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:background="@drawable/edittext_bottom_curve_gray"
+                    android:ems="10"
+                    android:inputType="textPassword" />
+            </com.google.android.material.textfield.TextInputLayout>
+
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
+
             <Button
                 android:id="@+id/btnSignUp"
                 style="@style/styleButtonSSignup"
@@ -102,9 +114,11 @@
                 android:layout_height="match_parent"
                 android:layout_marginBottom="10dp"
                 android:backgroundTint="#1B9DFD"
+                android:clickable="true"
                 android:padding="10dp"
-                android:text="Sign Up"
-                android:clickable="true"/>
+                android:text="@string/sign_up"
+                tools:targetApi="lollipop"
+                android:focusable="true" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -119,11 +133,12 @@
                 android:layout_height="match_parent"
                 android:layout_marginTop="2dp"
                 android:backgroundTint="#FFFFFF"
+                android:clickable="true"
                 android:padding="10dp"
-                android:text="Log in"
-                android:clickable="true"/>
+                android:text="@string/log_in"
+                tools:targetApi="lollipop"
+                android:focusable="true" />
         </LinearLayout>
-
 
     </ScrollView>
 
