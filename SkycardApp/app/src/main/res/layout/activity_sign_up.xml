@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/sign_up_window2"
+    tools:context=".LoginActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_marginTop="40dp"
+            android:padding="45dp">
+
+            <ImageView
+                android:layout_width="137dp"
+                android:layout_height="145dp"
+                android:layout_gravity="center"
+                android:layout_marginBottom="50dp"
+                app:srcCompat="@mipmap/sky_card_logo_foreground"
+                android:contentDescription="@string/signuplogo">
+
+            </ImageView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:text="Create Account" />
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/tvName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Name" />
+
+            <EditText
+                android:id="@+id/etName"
+                style="@style/EditLoginTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvEmail"
+                android:background="@drawable/edittext_top_curve_gray"
+                android:inputType="text" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/tvEmail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Email" />
+
+
+            <EditText
+                android:id="@+id/etEmail"
+                style="@style/EditLoginTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvEmail"
+                android:background="@drawable/edittext_top_curve_gray"
+                android:inputType="textEmailAddress" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Password" />
+
+
+            <EditText
+                android:id="@+id/etPassword"
+                style="@style/EditLoginTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edittext_bottom_curve_gray"
+                android:ems="10"
+                android:inputType="textPassword" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <Button
+                android:id="@+id/btnSignUp"
+                style="@style/styleButtonSSignup"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="10dp"
+                android:backgroundTint="#1B9DFD"
+                android:padding="10dp"
+                android:text="Sign Up"
+                android:clickable="true"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="or" />
+
+            <Button
+                android:id="@+id/btnLogin"
+                style="@style/styleButtonSLogin"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="2dp"
+                android:backgroundTint="#FFFFFF"
+                android:padding="10dp"
+                android:text="Log in"
+                android:clickable="true"/>
+        </LinearLayout>
+
+
+    </ScrollView>
+
+</LinearLayout>
