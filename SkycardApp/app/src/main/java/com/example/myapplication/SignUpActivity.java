@@ -20,11 +20,11 @@ public class SignUpActivity extends AppCompatActivity {
         buttonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openNewActivity();
+                openLoginActivity();
             }
         });
     }
-    public void openNewActivity(){
+    public void openLoginActivity(){
         Intent intent = new Intent(this,LoginActivity.class);
         startActivity(intent);
     }
