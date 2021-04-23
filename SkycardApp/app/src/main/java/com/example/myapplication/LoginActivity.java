@@ -62,7 +62,7 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    public static String baseUrl = "";
+//    public static String baseUrl = "";
 
     private void requestLogin() {
 
@@ -96,8 +96,9 @@ public class LoginActivity extends AppCompatActivity {
                 SharedPreferences.Editor editor = sharedPref.edit();
 
                 try {
+
                     //store the key and its values
-                    editor.putString("token", response.getString("response"));//ewana key
+                    editor.putString("token", response.getString("access_token"));
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -122,10 +123,10 @@ public class LoginActivity extends AppCompatActivity {
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
 
-                SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref",MODE_PRIVATE);
-                String token = pref.getString("token","");
-                params.put("Authorization", "Bearer "+token);
-                Log.d("fdgdfgfd","msg"+token);
+                SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
+                String token = pref.getString("token", "");
+                params.put("Authorization", "Bearer " + token);
+                Log.d("fdgdfgfd", "msg" + token);
                 return params;
             }
         };

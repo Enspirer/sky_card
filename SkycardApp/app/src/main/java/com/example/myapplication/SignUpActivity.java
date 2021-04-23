@@ -56,12 +56,12 @@ public class SignUpActivity extends AppCompatActivity {
         buttonSignup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sendData();
+                sendSignupData();
             }
         });
     }
 
-    private void sendData() {
+    private void sendSignupData() {
 
         String url = "http://thechaptersrilanka.com/sky_card_backend/public/api/auth/signup";
         JSONObject obj = new JSONObject();

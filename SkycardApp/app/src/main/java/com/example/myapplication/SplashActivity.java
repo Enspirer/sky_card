@@ -11,6 +11,7 @@ import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -29,11 +30,11 @@ import java.util.Map;
 
 public class SplashActivity extends AppCompatActivity {
 
-    //permissions
-    String permissionCamera = Manifest.permission_group.CAMERA;
-    String permissionMedia = Manifest.permission_group.STORAGE;
-    String permisionSMS = Manifest.permission_group.SMS;
-    String permisssionContacts = Manifest.permission_group.CONTACTS;
+//    //permissions
+//    String permissionCamera = Manifest.permission_group.CAMERA;
+//    String permissionMedia = Manifest.permission_group.STORAGE;
+//    String permisionSMS = Manifest.permission_group.SMS;
+//    String permisssionContacts = Manifest.permission_group.CONTACTS;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,18 +45,19 @@ public class SplashActivity extends AppCompatActivity {
         String token = pref.getString("token", "");
 
         if (token.equals("")) {
-            // open login
+            Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+            startActivity(intent);
         } else {
             startApp();
         }
     }
 
     private void startApp() {
-        String url = LoginActivity.baseUrl+"";
+
+        String url = "";//enter the url auth
         JSONObject obj = new JSONObject();
 
         try {
-
 //            obj.put("password", etPass.getText().toString());
 //            obj.put("email", ete_mail.getText().toString());
             obj.put("remember_me", 1);
@@ -68,14 +70,13 @@ public class SplashActivity extends AppCompatActivity {
 
         Log.d("Send Login Request", "login request " + obj);
 
-        JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.POST,
-                url, obj, new Response.Listener<JSONObject>() {
+        JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.POST,url, obj, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 Log.d("Response", response.toString());
 
                 try {
-                    if (response.getBoolean("key")) {
+                    if (response.getBoolean("key")) { //enter requested key
                         //ewana key
                         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                         startActivity(intent);
@@ -83,9 +84,6 @@ public class SplashActivity extends AppCompatActivity {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
-
-
             }
         }, new Response.ErrorListener() {
 
@@ -98,15 +96,20 @@ public class SplashActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(),
                         error.getMessage(), Toast.LENGTH_SHORT).show();
             }
-        }) {
+
+        })
+
+        {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
 
-                //app eke ona thenakin
+                //work anywhere
                 SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
-                String token = pref.getString("token", "");
+                String token = pref.getString("access_token", "");
                 params.put("Authorization", "Bearer " + token);
+
+                Log.d("take log","sds"+token);
                 return params;
 
             }
