@@ -45,18 +45,6 @@ public class SignUpActivity extends AppCompatActivity {
         password = userPassword.getText().toString();
         email = userEmail.getText().toString();
 
-//
-//        if (name.matches("")){
-//            Toast.makeText(this,"Enter your name",Toast.LENGTH_SHORT).show();
-//        }
-//        if (password.matches("")){
-//            Toast.makeText(this,"Enter the password",Toast.LENGTH_SHORT).show();
-//        }
-//        if (email.matches("")){
-//            Toast.makeText(this,"Enter your email address",Toast.LENGTH_SHORT).show();
-//        }
-
-
         buttonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -80,7 +68,7 @@ public class SignUpActivity extends AppCompatActivity {
 
         try {
             obj.put("first_name", userName.getText().toString());
-            obj.put("last_name","MyLastName");
+            obj.put("last_name", "MyLastName");
             obj.put("password", userPassword.getText().toString());
             obj.put("email", userEmail.getText().toString());
 
@@ -104,10 +92,6 @@ public class SignUpActivity extends AppCompatActivity {
                 Log.d("Error", "error " + error.getMessage());
                 Toast.makeText(getApplicationContext(),
                         error.getMessage(), Toast.LENGTH_SHORT).show();
-
-
-
-
             }
         });
 

@@ -1,15 +1,16 @@
 package com.example.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
+import android.Manifest;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.util.Log;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -26,57 +27,44 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
-public class LoginActivity extends AppCompatActivity {
+public class SplashActivity extends AppCompatActivity {
 
-
-    Button buttonLogin, buttonSignUp;
-
-    EditText etPass, ete_mail;
-
+    //permissions
+    String permissionCamera = Manifest.permission_group.CAMERA;
+    String permissionMedia = Manifest.permission_group.STORAGE;
+    String permisionSMS = Manifest.permission_group.SMS;
+    String permisssionContacts = Manifest.permission_group.CONTACTS;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_splash);
 
-        etPass = findViewById(R.id.etPassword);
-        ete_mail = findViewById(R.id.etEmail);
-
-        buttonSignUp = findViewById(R.id.btnSignUp);
-        buttonLogin = findViewById(R.id.btnLogin);
-
-        buttonSignUp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), SignUpActivity.class);
-                startActivity(intent);
+        if (Build.VERSION.SDK_INT >= 23) {
+            if (!checkIfAlreadyHavePermission()) {
+                //requestForSpecificPermission();
+            } else {
+                startApp();
             }
-        });
-
-        buttonLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                requestLogin();
-            }
-        });
+        } else {
+            startApp();
+        }
     }
 
-    private void requestLogin() {
-
-        String url = "http://thechaptersrilanka.com/sky_card_backend/public/api/auth/login";
+    private void startApp() {
+        String url = "";
         JSONObject obj = new JSONObject();
 
         try {
 
-            obj.put("password", etPass.getText().toString());
-            obj.put("email", ete_mail.getText().toString());
+//            obj.put("password", etPass.getText().toString());
+//            obj.put("email", ete_mail.getText().toString());
             obj.put("remember_me", 1);
 
         } catch (JSONException e) {
             e.printStackTrace();
-            Toast.makeText(LoginActivity.this, "Internet Connection Failed",
-                    Toast.LENGTH_SHORT).show();
+//            Toast.makeText(LoginActivity.this, "Internet Connection Failed",
+//                    Toast.LENGTH_SHORT).show();
         }
 
         Log.d("Send Login Request", "login request " + obj);
@@ -119,10 +107,11 @@ public class LoginActivity extends AppCompatActivity {
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
 
-                SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref",MODE_PRIVATE);
-                String token = pref.getString("token","");
-                params.put("Authorization", "Bearer "+token);
+                SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
+                String token = pref.getString("token", "");
+                params.put("Authorization", "Bearer " + token);
                 return params;
+
             }
         };
 
@@ -132,4 +121,22 @@ public class LoginActivity extends AppCompatActivity {
     }
 
 
+    //check permissons
+    private boolean checkIfAlreadyHavePermission() {
+        int result =
+                ContextCompat.checkSelfPermission(this, permisssionContacts) & ContextCompat.checkSelfPermission(this, permissionCamera) & ContextCompat.checkSelfPermission(this, permisionSMS) & ContextCompat.checkSelfPermission(this, permissionMedia);
+        if (result == PackageManager.PERMISSION_GRANTED) {
+            return true;
+        }
+
+        return false;
+    }
+
+    private void requestForSpecificPermission() {
+//        ActivityCompat.requestPermissions(
+//                this,
+//                new String[]{},
+//                101
+//        );
+    }
 }

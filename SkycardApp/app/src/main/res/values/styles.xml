@@ -44,7 +44,7 @@
 
     <style name="styleButtonSLogin">
         <item name="textAllCaps">false</item>
-        <item name="android:textColor">#076ACD</item>
+        <item name="android:textColor">#FF076ACD</item>
         <item name="android:textAlignment">center</item>
     </style>
 
