@@ -40,19 +40,18 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
-        if (Build.VERSION.SDK_INT >= 23) {
-            if (!checkIfAlreadyHavePermission()) {
-                //requestForSpecificPermission();
-            } else {
-                startApp();
-            }
+        SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
+        String token = pref.getString("token", "");
+
+        if (token.equals("")) {
+            // open login
         } else {
             startApp();
         }
     }
 
     private void startApp() {
-        String url = "";
+        String url = LoginActivity.baseUrl+"";
         JSONObject obj = new JSONObject();
 
         try {
@@ -75,21 +74,17 @@ public class SplashActivity extends AppCompatActivity {
             public void onResponse(JSONObject response) {
                 Log.d("Response", response.toString());
 
-                SharedPreferences sharedPref = getApplicationContext().getSharedPreferences(
-                        "MyPref", MODE_PRIVATE);
-
-                SharedPreferences.Editor editor = sharedPref.edit();
-
                 try {
-                    //store the key and its values
-                    editor.putString("token", response.getString("response"));
+                    if (response.getBoolean("key")) {
+                        //ewana key
+                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                        startActivity(intent);
+                    }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                editor.commit();
 
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                startActivity(intent);
+
 
             }
         }, new Response.ErrorListener() {
@@ -98,6 +93,7 @@ public class SplashActivity extends AppCompatActivity {
             public void onErrorResponse(VolleyError error) {
                 error.printStackTrace();
 
+                // if 401 error - open login screen
                 Log.d("Error", "error " + error.getMessage());
                 Toast.makeText(getApplicationContext(),
                         error.getMessage(), Toast.LENGTH_SHORT).show();
@@ -107,6 +103,7 @@ public class SplashActivity extends AppCompatActivity {
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
 
+                //app eke ona thenakin
                 SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
                 String token = pref.getString("token", "");
                 params.put("Authorization", "Bearer " + token);
@@ -121,22 +118,4 @@ public class SplashActivity extends AppCompatActivity {
     }
 
 
-    //check permissons
-    private boolean checkIfAlreadyHavePermission() {
-        int result =
-                ContextCompat.checkSelfPermission(this, permisssionContacts) & ContextCompat.checkSelfPermission(this, permissionCamera) & ContextCompat.checkSelfPermission(this, permisionSMS) & ContextCompat.checkSelfPermission(this, permissionMedia);
-        if (result == PackageManager.PERMISSION_GRANTED) {
-            return true;
-        }
-
-        return false;
-    }
-
-    private void requestForSpecificPermission() {
-//        ActivityCompat.requestPermissions(
-//                this,
-//                new String[]{},
-//                101
-//        );
-    }
 }

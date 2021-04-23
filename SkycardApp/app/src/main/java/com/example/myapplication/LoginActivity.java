@@ -62,6 +62,8 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
+    public static String baseUrl = "";
+
     private void requestLogin() {
 
         String url = "http://thechaptersrilanka.com/sky_card_backend/public/api/auth/login";
@@ -87,6 +89,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onResponse(JSONObject response) {
                 Log.d("Response", response.toString());
 
+                //store device line102
                 SharedPreferences sharedPref = getApplicationContext().getSharedPreferences(
                         "MyPref", MODE_PRIVATE);
 
@@ -94,7 +97,7 @@ public class LoginActivity extends AppCompatActivity {
 
                 try {
                     //store the key and its values
-                    editor.putString("token", response.getString("response"));
+                    editor.putString("token", response.getString("response"));//ewana key
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -102,7 +105,7 @@ public class LoginActivity extends AppCompatActivity {
 
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(intent);
-
+                finish();
             }
         }, new Response.ErrorListener() {
 
@@ -122,6 +125,7 @@ public class LoginActivity extends AppCompatActivity {
                 SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref",MODE_PRIVATE);
                 String token = pref.getString("token","");
                 params.put("Authorization", "Bearer "+token);
+                Log.d("fdgdfgfd","msg"+token);
                 return params;
             }
         };
