@@ -33,7 +33,6 @@ public class LoginActivity extends AppCompatActivity {
 
     EditText etPass, ete_mail;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,13 +55,10 @@ public class LoginActivity extends AppCompatActivity {
         buttonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 requestLogin();
             }
         });
     }
-
-//    public static String baseUrl = "";
 
     private void requestLogin() {
 
@@ -89,14 +85,13 @@ public class LoginActivity extends AppCompatActivity {
             public void onResponse(JSONObject response) {
                 Log.d("Response", response.toString());
 
-                //store device line102
+                //stored as mypref
                 SharedPreferences sharedPref = getApplicationContext().getSharedPreferences(
                         "MyPref", MODE_PRIVATE);
 
                 SharedPreferences.Editor editor = sharedPref.edit();
 
                 try {
-
                     //store the key and its values
                     editor.putString("token", response.getString("access_token"));
                 } catch (JSONException e) {
@@ -104,9 +99,18 @@ public class LoginActivity extends AppCompatActivity {
                 }
                 editor.commit();
 
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                startActivity(intent);
-                finish();
+                SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", MODE_APPEND);
+                String token = pref.getString("token", "");
+
+                if (token.equals("")) {
+                    Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                    startActivity(intent);
+                } else {
+                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                    startActivity(intent);
+                    Toast.makeText(getApplicationContext(),"token accessed",Toast.LENGTH_SHORT).show();
+                    finish();
+                }
             }
         }, new Response.ErrorListener() {
 
@@ -126,7 +130,8 @@ public class LoginActivity extends AppCompatActivity {
                 SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
                 String token = pref.getString("token", "");
                 params.put("Authorization", "Bearer " + token);
-                Log.d("fdgdfgfd", "msg" + token);
+
+                //Log.d("fdgdfgfd", "msg" + token);
                 return params;
             }
         };

@@ -30,11 +30,6 @@ import java.util.Map;
 
 public class SplashActivity extends AppCompatActivity {
 
-//    //permissions
-//    String permissionCamera = Manifest.permission_group.CAMERA;
-//    String permissionMedia = Manifest.permission_group.STORAGE;
-//    String permisionSMS = Manifest.permission_group.SMS;
-//    String permisssionContacts = Manifest.permission_group.CONTACTS;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +37,7 @@ public class SplashActivity extends AppCompatActivity {
         setContentView(R.layout.activity_splash);
 
         SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
-        String token = pref.getString("token", "");
+        String token = pref.getString("access_token", "");
 
         if (token.equals("")) {
             Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
@@ -98,7 +93,6 @@ public class SplashActivity extends AppCompatActivity {
             }
 
         })
-
         {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
