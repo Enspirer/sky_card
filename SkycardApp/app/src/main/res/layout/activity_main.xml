@@ -361,7 +361,8 @@
             android:contentDescription="@string/skycardlogo"
             app:layout_anchorGravity="top|center"
             app:layout_collapseMode="pin"
-            app:srcCompat="@mipmap/sky_card_logo_foreground" />
+            app:srcCompat="@mipmap/sky_card_logo_foreground"
+            android:clickable="true"/>
     </com.google.android.material.appbar.CollapsingToolbarLayout>
 
 

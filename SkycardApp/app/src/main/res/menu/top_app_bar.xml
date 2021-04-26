@@ -1,10 +1,27 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <item
-        android:id="@+id/more"
-        android:title="topNotification"
-        android:icon="@drawable/ic_baseline_add_alert_24"
-        app:showAsAction="always" />
 
+
+    <item
+        android:id="@+id/logout"
+        android:title="LOGOUT" />
+    <item
+        android:id="@+id/naviHome"
+        android:title="Home" />
+    <item
+        android:id="@+id/naviCon"
+        android:title="My Cards"
+        android:icon="@drawable/ic_mycards"/>
+    <item
+        android:id="@+id/naviAddacrd"
+        android:title="Add card"
+       />
+    <item
+        android:id="@+id/naviMycards"
+        android:title="Card Holder"
+        />
+    <item
+        android:id="@+id/naviShare"
+        android:title="Share" />
 </menu>
