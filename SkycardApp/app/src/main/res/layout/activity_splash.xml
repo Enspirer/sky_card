@@ -6,18 +6,18 @@
     android:layout_height="match_parent"
     tools:context=".SplashActivity">
 
-  <RelativeLayout
-      android:layout_width="match_parent"
-      android:layout_height="match_parent">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-      <ImageView
-          android:id="@+id/imageView"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_centerHorizontal="true"
-          android:layout_centerVertical="true"
-          app:srcCompat="@mipmap/sky_card_logo_foreground">
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            app:srcCompat="@mipmap/sky_card_logo_foreground">
 
-      </ImageView>
-  </RelativeLayout>
+        </ImageView>
+    </RelativeLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

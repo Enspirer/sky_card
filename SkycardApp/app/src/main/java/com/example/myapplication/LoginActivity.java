@@ -99,18 +99,10 @@ public class LoginActivity extends AppCompatActivity {
                 }
                 editor.commit();
 
-                SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", MODE_APPEND);
-                String token = pref.getString("token", "");
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+               startActivity(intent);
+               finish();
 
-                if (token.equals("")) {
-                    Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-                    startActivity(intent);
-                } else {
-                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                    startActivity(intent);
-                    Toast.makeText(getApplicationContext(),"token accessed",Toast.LENGTH_SHORT).show();
-                    finish();
-                }
             }
         }, new Response.ErrorListener() {
 
@@ -122,19 +114,21 @@ public class LoginActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(),
                         error.getMessage(), Toast.LENGTH_SHORT).show();
             }
-        }) {
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                Map<String, String> params = new HashMap<String, String>();
+        });
 
-                SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
-                String token = pref.getString("token", "");
-                params.put("Authorization", "Bearer " + token);
-
-                //Log.d("fdgdfgfd", "msg" + token);
-                return params;
-            }
-        };
+//        {
+//            @Override
+//            public Map<String, String> getHeaders() throws AuthFailureError {
+//                Map<String, String> params = new HashMap<String, String>();
+//
+//                SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
+//                String token = pref.getString("token", "");
+//                params.put("Authorization", "Bearer " + token);
+//
+//                //Log.d("fdgdfgfd", "msg" + token);
+//                return params;
+//            }
+//        };
 
         RequestQueue queue = Volley.newRequestQueue(this);
         queue.add(jsonObjReq);
