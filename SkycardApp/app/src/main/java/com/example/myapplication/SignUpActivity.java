@@ -85,6 +85,7 @@ public class SignUpActivity extends AppCompatActivity {
             public void onResponse(JSONObject response) {
                 Log.d("Response", response.toString());
 
+
             }
         }, new Response.ErrorListener() {
             @Override

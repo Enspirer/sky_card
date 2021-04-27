@@ -86,9 +86,7 @@ public class LoginActivity extends AppCompatActivity {
                 Log.d("Response", response.toString());
 
                 //stored as mypref
-                SharedPreferences sharedPref = getApplicationContext().getSharedPreferences(
-                        "MyPref", MODE_PRIVATE);
-
+                SharedPreferences sharedPref = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPref.edit();
 
                 try {
@@ -102,6 +100,7 @@ public class LoginActivity extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                startActivity(intent);
                finish();
+                Toast.makeText(getApplicationContext(),"Login Successful", Toast.LENGTH_SHORT).show();
 
             }
         }, new Response.ErrorListener() {

@@ -345,8 +345,9 @@
         android:layout_alignParentBottom="true"
         app:itemBackground="@color/white"
         app:itemIconTint="@drawable/selector"
-        app:itemTextColor="@drawable/selector"
-        app:menu="@menu/menu_navigation" />
+        app:menu="@menu/menu_navigation"
+        app:itemIconSize="40dp"
+        android:contextClickable="true"/>
 
     <com.google.android.material.appbar.CollapsingToolbarLayout
         android:layout_width="wrap_content"

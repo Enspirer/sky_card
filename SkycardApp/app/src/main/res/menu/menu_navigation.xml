@@ -3,23 +3,22 @@
 
     <item
         android:id="@+id/naviHome"
-        android:title="Home"
         android:icon="@drawable/ic_home"/>
     <item
         android:id="@+id/naviCon"
-        android:title="My Cards"
+
         android:icon="@drawable/ic_mycards"/>
     <item
         android:id="@+id/naviAddacrd"
-        android:title="Add card"
+
         android:icon="@drawable/ic_addcard"/>
     <item
         android:id="@+id/naviMycards"
-        android:title="Card Holder"
+
         android:icon="@drawable/ic_card_holder"/>
     <item
         android:id="@+id/naviShare"
-        android:title="Share"
+
         android:icon="@drawable/ic_sharecard"/>
 
 
