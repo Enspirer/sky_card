@@ -1,20 +1,17 @@
 package com.example.myapplication;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-
-import org.json.JSONException;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -41,12 +38,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
-                switch (item.getItemId()) {
-                    case R.id.naviAddacrd:
-
-                        Intent intent = new Intent(getApplicationContext(), CameraActivity.class);
-                        startActivity(intent);
-                        finish();
+                if (item.getItemId() == R.id.naviAddacrd) {
+                    Intent intent = new Intent(getApplicationContext(), CameraActivity.class);
+                    startActivity(intent);
+                    finish();
                 }
                 return false;
             }
@@ -56,11 +51,12 @@ public class MainActivity extends AppCompatActivity {
 
     public void clearPref(){
         SharedPreferences sharedPref = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
-        sharedPref.edit().remove("token").commit();
+        sharedPref.edit().remove("token").apply();
 
         Intent intent = new Intent(getApplicationContext(),LoginActivity.class);
         startActivity(intent);
         finish();
+        Toast.makeText(getApplicationContext(),"Logout Successful",Toast.LENGTH_SHORT).show();
 
     }
 
