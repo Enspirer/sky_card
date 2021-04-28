@@ -42,8 +42,8 @@ public class CameraActivity extends AppCompatActivity implements SurfaceHolder.C
     private SurfaceHolder surfaceHolder;
     private Camera camera;
     private Button buttonConfirmImage;
-    public Button buttonCaptureImage;
-    public Button buttonCloseCamera;
+    private Button buttonCaptureImage;
+    private Button buttonCloseCamera;
     private int cameraId;
     private int rotation;
 
@@ -53,24 +53,37 @@ public class CameraActivity extends AppCompatActivity implements SurfaceHolder.C
         setContentView(R.layout.activity_camera);
 
         cameraId = Camera.CameraInfo.CAMERA_FACING_BACK;
-        buttonCaptureImage = (Button) findViewById(R.id.captureImage);
-        surfaceView = (SurfaceView) findViewById(R.id.surfaceView);
+
+
+
+        surfaceView = findViewById(R.id.surfaceView);
+        buttonConfirmImage = findViewById(R.id.buttonConfirm);
+        buttonCloseCamera = findViewById(R.id.btnClose);
+        buttonCaptureImage = findViewById(R.id.captureImage);
 
         surfaceHolder = surfaceView.getHolder();
         surfaceHolder.addCallback(this);
         buttonCaptureImage.setOnClickListener(this);
-//        buttonCloseCamera.setOnClickListener(this);
 
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
-//        buttonCloseCamera.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-//                startActivity(intent);
-//
-//            }
-//        });
+
+        buttonCloseCamera.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+        buttonConfirmImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(),AddCardActivity.class);
+                startActivity(intent);
+            }
+        });
 
     }
 
@@ -79,7 +92,6 @@ public class CameraActivity extends AppCompatActivity implements SurfaceHolder.C
         if (!openCamera(Camera.CameraInfo.CAMERA_FACING_BACK)) {
             alertCameraDialog();
         }
-
     }
 
     private boolean openCamera(int id) {
@@ -184,20 +196,9 @@ public class CameraActivity extends AppCompatActivity implements SurfaceHolder.C
 
         if (v.getId() == R.id.captureImage) {
             takeImage();
-
         }
         camera.autoFocus(myAutofocusCallback);
-
-        if (v.getId() == R.id.btnClose) {
-            releaseCamera();
-        }
     }
-
-////    private void closeCamera() {
-//////        Intent intent = new Intent(getApplicationContext(),MainActivity.class);
-//////        startActivity(intent);
-//////        finish();
-////    }
 
     Camera.AutoFocusCallback myAutofocusCallback = new Camera.AutoFocusCallback() {
         @Override
@@ -278,26 +279,20 @@ public class CameraActivity extends AppCompatActivity implements SurfaceHolder.C
                 }
 
                 buttonCaptureImage.setEnabled(false);
-
-
+                if (camera != null) {
+                    camera.stopPreview();
+                    camera.release();
+                    camera = null;
+                }
             }
 
         });
 
 
         Toast.makeText(getApplicationContext(), "Image Captured", Toast.LENGTH_SHORT).show();
-//        buttonCloseCamera.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                closeCamera();
-//            }
-//        });
+        buttonCaptureImage.setVisibility(View.INVISIBLE);
     }
 
-    private void closeCamera() {
-        Intent intent = new Intent(getApplicationContext(),MainActivity.class);
-        startActivity(intent);
-    }
 
     private void alertCameraDialog() {
         AlertDialog.Builder dialog = createAlert(CameraActivity.this,
