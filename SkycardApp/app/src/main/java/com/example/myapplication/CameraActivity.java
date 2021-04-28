@@ -29,6 +29,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.security.Policy;
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -69,7 +70,7 @@ public class CameraActivity extends AppCompatActivity implements SurfaceHolder.C
         if (!openCamera(Camera.CameraInfo.CAMERA_FACING_BACK)) {
             alertCameraDialog();
         }
-        camera.getParameters().setFocusMode(FOCUS_MODE_AUTO);
+//        camera.getParameters().setFocusMode(FOCUS_MODE_AUTO);
     }
 
     private boolean openCamera(int id) {
@@ -132,14 +133,15 @@ public class CameraActivity extends AppCompatActivity implements SurfaceHolder.C
         // Back-facing
         rotation = (info.orientation - degree + 360) % 360;
         c.setDisplayOrientation(rotation);
-        Camera.Parameters params = c.getParameters();
-        List<String> focusModes = ((Camera.Parameters) params).getSupportedFlashModes();
 
-        if (focusModes != null) {
-            if (focusModes.contains(Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE)) {
-//                params.setFlashMode(Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE);
-            }
+        Camera.Parameters params = camera.getParameters();
+
+        if (params.getSupportedFocusModes().contains(Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE)){
+            params.setFocusMode(Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE);
         }
+        camera.setParameters(params);
+
+
         params.setRotation(rotation);
     }
 
@@ -172,14 +174,19 @@ public class CameraActivity extends AppCompatActivity implements SurfaceHolder.C
     @Override
     public void onClick(View v) {
 
-        switch (v.getId()) {
-            case R.id.captureImage:
-                takeImage();
-                break;
-            default:
-                break;
+        if (v.getId() == R.id.captureImage) {
+            takeImage();
         }
+        camera.autoFocus(myAutofocusCallback);
     }
+
+    Camera.AutoFocusCallback myAutofocusCallback = new Camera.AutoFocusCallback() {
+        @Override
+        public void onAutoFocus(boolean success, Camera camera) {
+            captureImage.setEnabled(true);
+        }
+    };
+
     private void takeImage() {
         camera.takePicture(null, null, new Camera.PictureCallback() {
 
@@ -255,14 +262,6 @@ public class CameraActivity extends AppCompatActivity implements SurfaceHolder.C
         });
     }
 
-    private void flipCamera() {
-        int id = (cameraId == Camera.CameraInfo.CAMERA_FACING_BACK ? Camera.CameraInfo.CAMERA_FACING_FRONT
-                : Camera.CameraInfo.CAMERA_FACING_BACK);
-        if (!openCamera(id)) {
-            alertCameraDialog();
-        }
-    }
-
     private void alertCameraDialog() {
         AlertDialog.Builder dialog = createAlert(CameraActivity.this,
                 "Camera info", "error to open camera");
@@ -296,4 +295,5 @@ public class CameraActivity extends AppCompatActivity implements SurfaceHolder.C
     public void onPointerCaptureChanged(boolean hasCapture) {
 
     }
+
 }
