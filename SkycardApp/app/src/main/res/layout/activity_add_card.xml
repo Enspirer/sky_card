@@ -51,11 +51,11 @@
 
             <ImageView
                 android:id="@+id/ivAddCardPrev"
-                android:layout_width="294dp"
-                android:layout_height="176dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_alignParentBottom="true"
-                android:layout_gravity="center_horizontal"/>
-
+                android:layout_gravity="center_horizontal"
+                android:rotation="360"/>
 
         </LinearLayout>
 

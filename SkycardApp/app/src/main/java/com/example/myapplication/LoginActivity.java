@@ -123,6 +123,7 @@ public class LoginActivity extends AppCompatActivity {
 //                SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
 //                String token = pref.getString("token", "");
 //                params.put("Authorization", "Bearer " + token);
+//        params.put("upload_file",base64.encodeImage)
 //
 //                //Log.d("fdgdfgfd", "msg" + token);
 //                return params;

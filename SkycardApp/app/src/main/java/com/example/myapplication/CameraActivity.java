@@ -39,6 +39,9 @@ import java.sql.Timestamp;
 
 public class CameraActivity extends AppCompatActivity implements SurfaceHolder.Callback, View.OnClickListener {
 
+    public static File imageFile;
+    public static String encodeImage;
+
     private SurfaceView surfaceView;
     private SurfaceHolder surfaceHolder;
     private Camera camera;
@@ -48,7 +51,6 @@ public class CameraActivity extends AppCompatActivity implements SurfaceHolder.C
     private int cameraId;
     private int rotation;
 
-    @SuppressLint("WrongThread")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,11 +82,9 @@ public class CameraActivity extends AppCompatActivity implements SurfaceHolder.C
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), AddCardActivity.class);
                 startActivity(intent);
-
             }
         });
     }
-
 
     @Override
     public void surfaceCreated(SurfaceHolder holder) {
@@ -210,8 +210,6 @@ public class CameraActivity extends AppCompatActivity implements SurfaceHolder.C
     private void takeImage() {
         camera.takePicture(null, null, new Camera.PictureCallback() {
 
-            public File imageFile;
-
             @Override
             public void onPictureTaken(byte[] data, Camera camera) {
                 try {
@@ -286,35 +284,11 @@ public class CameraActivity extends AppCompatActivity implements SurfaceHolder.C
                     camera.release();
                     camera = null;
                 }
-                encodeImage(imageFile);
             }
-
-            private String encodeImage(File path) {
-
-                File imagefile = path;
-                FileInputStream fis = null;
-
-                try {
-                    fis = new FileInputStream(imagefile);
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                }
-
-                Bitmap bm = BitmapFactory.decodeStream(fis);
-                ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                bm.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-                byte[] b = baos.toByteArray();
-                String encodeImage = Base64.encodeToString(b, Base64.DEFAULT);
-                Log.d("xyz", "asd" + encodeImage);
-                return encodeImage;
-            }
-
         });
-
         Toast.makeText(getApplicationContext(), "Image Captured", Toast.LENGTH_SHORT).show();
         buttonCaptureImage.setVisibility(View.INVISIBLE);
     }
-
     private void alertCameraDialog() {
         AlertDialog.Builder dialog = createAlert(CameraActivity.this,
                 "Camera info", "error to open camera");
@@ -348,6 +322,7 @@ public class CameraActivity extends AppCompatActivity implements SurfaceHolder.C
     public void onPointerCaptureChanged(boolean hasCapture) {
 
     }
+
 
 
 }
