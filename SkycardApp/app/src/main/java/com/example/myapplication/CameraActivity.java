@@ -183,6 +183,7 @@ public class CameraActivity extends AppCompatActivity implements SurfaceHolder.C
     @Override
     public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
 
+
     }
 
     @Override
@@ -261,7 +262,6 @@ public class CameraActivity extends AppCompatActivity implements SurfaceHolder.C
 
                     // save image into gallery
                     rotatedBitmap.compress(Bitmap.CompressFormat.JPEG, 100, ostream);
-
                     FileOutputStream fout = new FileOutputStream(imageFile);
                     fout.write(ostream.toByteArray());
                     fout.close();
@@ -300,24 +300,20 @@ public class CameraActivity extends AppCompatActivity implements SurfaceHolder.C
                     e.printStackTrace();
                 }
 
-
                 Bitmap bm = BitmapFactory.decodeStream(fis);
                 ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                bm.compress(Bitmap.CompressFormat.JPEG,100,baos);
-                byte[] b= baos.toByteArray();
-                String encodeImage= Base64.encodeToString(b, Base64.DEFAULT);
-                Log.d("xyz","asd"+encodeImage);
+                bm.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+                byte[] b = baos.toByteArray();
+                String encodeImage = Base64.encodeToString(b, Base64.DEFAULT);
+                Log.d("xyz", "asd" + encodeImage);
                 return encodeImage;
-
             }
-
 
         });
 
         Toast.makeText(getApplicationContext(), "Image Captured", Toast.LENGTH_SHORT).show();
         buttonCaptureImage.setVisibility(View.INVISIBLE);
     }
-
 
     private void alertCameraDialog() {
         AlertDialog.Builder dialog = createAlert(CameraActivity.this,
