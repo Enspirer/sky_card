@@ -4,11 +4,11 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.view.ContextThemeWrapper;
 
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
@@ -16,6 +16,7 @@ import android.hardware.Camera;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.util.Base64;
 import android.util.Log;
 import android.view.Surface;
 import android.view.SurfaceHolder;
@@ -23,18 +24,18 @@ import android.view.SurfaceView;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
-import java.security.Policy;
+import java.nio.file.spi.FileTypeDetector;
 import java.sql.Timestamp;
-import java.util.List;
-
-import static android.hardware.Camera.Parameters.FOCUS_MODE_AUTO;
 
 public class CameraActivity extends AppCompatActivity implements SurfaceHolder.Callback, View.OnClickListener {
 
@@ -43,22 +44,20 @@ public class CameraActivity extends AppCompatActivity implements SurfaceHolder.C
     private Camera camera;
     private Button buttonConfirmImage;
     private Button buttonCaptureImage;
-    private Button buttonCloseCamera;
+    private ImageView imageCloseCamera;
     private int cameraId;
     private int rotation;
 
+    @SuppressLint("WrongThread")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_camera);
 
         cameraId = Camera.CameraInfo.CAMERA_FACING_BACK;
-
-
-
         surfaceView = findViewById(R.id.surfaceView);
         buttonConfirmImage = findViewById(R.id.buttonConfirm);
-        buttonCloseCamera = findViewById(R.id.btnClose);
+        imageCloseCamera = findViewById(R.id.btnClose);
         buttonCaptureImage = findViewById(R.id.captureImage);
 
         surfaceHolder = surfaceView.getHolder();
@@ -67,8 +66,7 @@ public class CameraActivity extends AppCompatActivity implements SurfaceHolder.C
 
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
-
-        buttonCloseCamera.setOnClickListener(new View.OnClickListener() {
+        imageCloseCamera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
@@ -80,12 +78,13 @@ public class CameraActivity extends AppCompatActivity implements SurfaceHolder.C
         buttonConfirmImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(),AddCardActivity.class);
+                Intent intent = new Intent(getApplicationContext(), AddCardActivity.class);
                 startActivity(intent);
+
             }
         });
-
     }
+
 
     @Override
     public void surfaceCreated(SurfaceHolder holder) {
@@ -210,7 +209,7 @@ public class CameraActivity extends AppCompatActivity implements SurfaceHolder.C
     private void takeImage() {
         camera.takePicture(null, null, new Camera.PictureCallback() {
 
-            private File imageFile;
+            public File imageFile;
 
             @Override
             public void onPictureTaken(byte[] data, Camera camera) {
@@ -230,11 +229,11 @@ public class CameraActivity extends AppCompatActivity implements SurfaceHolder.C
                     String state = Environment.getExternalStorageState();
                     File folder = null;
                     if (state.contains(Environment.MEDIA_MOUNTED)) {
-                        folder = new File(Environment
-                                .getExternalStorageDirectory() + "/Demo");
+                        folder = new File(Environment.getExternalStorageDirectory() + "/Demo");
+                        Log.d("pathfolder", "aaaaaa" + folder);
+
                     } else {
-                        folder = new File(Environment
-                                .getExternalStorageDirectory() + "/Demo");
+                        folder = new File(Environment.getExternalStorageDirectory() + "/Demo");
                     }
 
                     boolean success = true;
@@ -249,6 +248,9 @@ public class CameraActivity extends AppCompatActivity implements SurfaceHolder.C
                                 + "Image.jpg");
 
                         imageFile.createNewFile();
+                        Log.d("pathimagefile", "aaaaaa" + imageFile);
+
+
                     } else {
                         Toast.makeText(getBaseContext(), "Image Not saved",
                                 Toast.LENGTH_SHORT).show();
@@ -284,10 +286,33 @@ public class CameraActivity extends AppCompatActivity implements SurfaceHolder.C
                     camera.release();
                     camera = null;
                 }
+                encodeImage(imageFile);
             }
 
-        });
+            private String encodeImage(File path) {
 
+                File imagefile = path;
+                FileInputStream fis = null;
+
+                try {
+                    fis = new FileInputStream(imagefile);
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+
+
+                Bitmap bm = BitmapFactory.decodeStream(fis);
+                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                bm.compress(Bitmap.CompressFormat.JPEG,100,baos);
+                byte[] b= baos.toByteArray();
+                String encodeImage= Base64.encodeToString(b, Base64.DEFAULT);
+                Log.d("xyz","asd"+encodeImage);
+                return encodeImage;
+
+            }
+
+
+        });
 
         Toast.makeText(getApplicationContext(), "Image Captured", Toast.LENGTH_SHORT).show();
         buttonCaptureImage.setVisibility(View.INVISIBLE);
@@ -327,5 +352,6 @@ public class CameraActivity extends AppCompatActivity implements SurfaceHolder.C
     public void onPointerCaptureChanged(boolean hasCapture) {
 
     }
+
 
 }

@@ -50,12 +50,11 @@
             </RelativeLayout>
 
             <ImageView
-                android:id="@+id/ivCardSample"
+                android:id="@+id/ivAddCardPrev"
                 android:layout_width="294dp"
                 android:layout_height="176dp"
                 android:layout_alignParentBottom="true"
-                android:layout_gravity="center_horizontal"
-                app:srcCompat="@drawable/addcardpreview" />
+                android:layout_gravity="center_horizontal"/>
 
 
         </LinearLayout>
@@ -74,57 +73,23 @@
                 android:paddingLeft="50dp"
                 android:paddingRight="50dp">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:weightSum="2">
-
                     <TextView
-                        android:id="@+id/tvLastName"
+                        android:id="@+id/tvName"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentLeft="true"
                         android:layout_weight="1"
-                        android:text="Last Name" />
-
-                    <TextView
-                        android:id="@+id/tvFirstName"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_weight="2"
-                        android:text="First Name" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="2"
-                    android:orientation="horizontal">
+                        android:text="Name" />
 
                     <EditText
                         android:id="@+id/etLastName"
                         style="@style/EditLoginTextStyle"
-                        android:layout_width="140dp"
+                        android:layout_width="match_parent"
                         android:layout_height="50dp"
                         android:layout_alignParentLeft="true"
                         android:layout_weight="1"
                         android:background="@drawable/edittext_top_curve_gray"
                         android:textAllCaps="false" />
-
-                    <EditText
-                        android:id="@+id/etFirstName"
-                        style="@style/EditLoginTextStyle"
-                        android:layout_width="140dp"
-                        android:layout_height="50dp"
-                        android:layout_alignParentRight="true"
-                        android:layout_weight="1"
-                        android:background="@drawable/edittext_top_curve_gray"
-                        android:textAllCaps="false" />
-
-                </LinearLayout>
-
 
                 <TextView
                     android:id="@+id/tvtitle"
@@ -269,7 +234,7 @@
                         android:id="@+id/btnSaveCard"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:buttonTint="#FFFFFF"
+                        android:backgroundTint="#076ACD"
                         android:text="Save&#10;Card"
                         android:textAllCaps="false"
                         android:textColor="#FFFFFF"
@@ -282,7 +247,7 @@
                         android:backgroundTint="#00FFFFFF"
                         android:text="Re-Scan&#10;Card"
                         android:textAllCaps="false"
-                        android:textColor="#1B9DFD"
+                        android:textColor="#076ACD"
                         android:layout_weight="1"/>
                 </LinearLayout>
 

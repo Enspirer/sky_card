@@ -38,6 +38,7 @@ public class SplashActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
+
         startApp();
 
     }
@@ -57,6 +58,10 @@ public class SplashActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "token accessed", Toast.LENGTH_SHORT).show();
             finish();
         }
+
+    }
+
+    private void requestPermision(final int type){
 
     }
 }
