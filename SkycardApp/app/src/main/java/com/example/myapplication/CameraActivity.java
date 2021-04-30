@@ -40,7 +40,8 @@ import java.sql.Timestamp;
 public class CameraActivity extends AppCompatActivity implements SurfaceHolder.Callback, View.OnClickListener {
 
     public static File imageFile;
-    public static String encodeImage;
+    public static String encodedImage;
+
 
     private SurfaceView surfaceView;
     private SurfaceHolder surfaceHolder;
@@ -284,11 +285,37 @@ public class CameraActivity extends AppCompatActivity implements SurfaceHolder.C
                     camera.release();
                     camera = null;
                 }
+
+                encodeImage(imageFile);
+                encodedImage = encodeImage(imageFile);
+//                Log.d("encodedetails","ddfdfd"+encodedImage);
+
             }
         });
         Toast.makeText(getApplicationContext(), "Image Captured", Toast.LENGTH_SHORT).show();
         buttonCaptureImage.setVisibility(View.INVISIBLE);
     }
+
+    public static String encodeImage(File path) {
+
+        File imagefile = new File(path.getPath());
+        FileInputStream fis = null;
+
+        try {
+            fis = new FileInputStream(imagefile);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        Bitmap bm = BitmapFactory.decodeStream(fis);
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bm.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        byte[] b = baos.toByteArray();
+        String encodedImage = Base64.encodeToString(b, Base64.DEFAULT);
+//        Log.d("xyz", "asd" + encodeImage);
+        return encodedImage;
+    }
+
     private void alertCameraDialog() {
         AlertDialog.Builder dialog = createAlert(CameraActivity.this,
                 "Camera info", "error to open camera");
@@ -322,7 +349,6 @@ public class CameraActivity extends AppCompatActivity implements SurfaceHolder.C
     public void onPointerCaptureChanged(boolean hasCapture) {
 
     }
-
 
 
 }

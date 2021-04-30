@@ -20,6 +20,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
@@ -42,8 +43,7 @@ public class AddCardActivity extends AppCompatActivity {
         iViewAddCard = findViewById(R.id.ivAddCardPrev);
         iViewAddCard.setImageURI(Uri.fromFile(CameraActivity.imageFile));
 
-//        iViewAddCard.setImageBitmap(decodeImage());
-       base64file = encodeImage();
+        base64file = CameraActivity.encodedImage;
 
         sendCard();
     }
@@ -59,7 +59,6 @@ public class AddCardActivity extends AppCompatActivity {
             @Override
             public void onResponse(JSONObject response) {
 
-
                 Log.d("Response", response.toString());
             }
         }, new Response.ErrorListener() {
@@ -68,68 +67,26 @@ public class AddCardActivity extends AppCompatActivity {
             public void onErrorResponse(VolleyError error) {
                 error.printStackTrace();
 
-                Log.d("Error", "error " + error.getMessage());
-                Toast.makeText(getApplicationContext(),
-                        error.getMessage(), Toast.LENGTH_SHORT).show();
+//                Log.d("Error ", "error " + error.getMessage());
+//                Toast.makeText(getApplicationContext(),
+//                        error.getMessage(), Toast.LENGTH_SHORT).show();
             }
-        })
-        {
+        }) {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
 
                 SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
                 String token = pref.getString("token", "");
-                params.put("Authorization", "Bearer " + token);
-                params.put("upload_file", base64file);
-
+                params.put("Authorization", "Bearer"+token);
+                params.put("upload_file",base64file);
+//                Log.d("upp ","uppppp"+params);
                 return params;
             }
         };
 
         RequestQueue queue = Volley.newRequestQueue(this);
         queue.add(jsonObjReq);
-    }
-
-    public String encodeImage() {
-
-        File imagefile = CameraActivity.imageFile;
-        FileInputStream fis = null;
-
-        try {
-            fis = new FileInputStream(imagefile);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-
-        Bitmap bm = BitmapFactory.decodeStream(fis);
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        bm.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-        byte[] b = baos.toByteArray();
-        String encodeImage = Base64.encodeToString(b, Base64.DEFAULT);
-//        Log.d("xyz", "asd" + encodeImage);
-        return encodeImage;
-    }
-
-    public Bitmap decodeImage(){
-
-        File imagefile = CameraActivity.imageFile;
-        FileInputStream fis = null;
-
-        try {
-            fis = new FileInputStream(imagefile);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-
-        Bitmap bm = BitmapFactory.decodeStream(fis);
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        bm.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-        byte[] b = baos.toByteArray();
-        String encodeImage = Base64.encodeToString(b, Base64.DEFAULT);
-        b= Base64.decode(b,Base64.DEFAULT);
-        Bitmap decodeImage = BitmapFactory.decodeByteArray(b,0,b.length);
-        return decodeImage;
     }
 
 
