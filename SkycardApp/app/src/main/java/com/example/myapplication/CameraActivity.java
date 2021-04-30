@@ -27,6 +27,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.example.myapplication.helper.AppProgressDialog;
+
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -41,6 +43,7 @@ public class CameraActivity extends AppCompatActivity implements SurfaceHolder.C
 
     public static File imageFile;
     public static String encodedImage;
+    public static String resizedImage;
 
 
     private SurfaceView surfaceView;
@@ -286,33 +289,51 @@ public class CameraActivity extends AppCompatActivity implements SurfaceHolder.C
                     camera = null;
                 }
 
-                encodeImage(imageFile);
-                encodedImage = encodeImage(imageFile);
+//                encodedImage = encodeImage(imageFile);
 //                Log.d("encodedetails","ddfdfd"+encodedImage);
-
+//                resizeBase64Image(encodedImage);
+//                resizedImage=resizeBase64Image(encodedImage);
+//                Bitmap bm = BitmapFactory.decodeFile(imageFile.getPath());
+//                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+//                bm.compress(Bitmap.CompressFormat.JPEG,100,baos);
+//                byte[] b = baos.toByteArray();
+                encodedImage= encodeImage(imageFile);
+                resizedImage=resizeBase64Image(encodedImage);
             }
         });
         Toast.makeText(getApplicationContext(), "Image Captured", Toast.LENGTH_SHORT).show();
         buttonCaptureImage.setVisibility(View.INVISIBLE);
     }
 
-    public static String encodeImage(File path) {
+    public static String resizeBase64Image(String base64){
+        byte [] encodeByte=Base64.decode(base64.getBytes(),Base64.DEFAULT);
+        BitmapFactory.Options options=new BitmapFactory.Options();
+        options.inPurgeable = true;
+        Bitmap bm = BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length,options);
 
-        File imagefile = new File(path.getPath());
-        FileInputStream fis = null;
-
-        try {
-            fis = new FileInputStream(imagefile);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
+        if(bm.getHeight() <= 400 && bm.getWidth() <= 400){
+            return base64;
         }
+        bm= Bitmap.createScaledBitmap(bm, 400, 400, false);
 
-        Bitmap bm = BitmapFactory.decodeStream(fis);
+        ByteArrayOutputStream baos=new  ByteArrayOutputStream();
+        bm.compress(Bitmap.CompressFormat.JPEG,100, baos);
+
+        byte [] b=baos.toByteArray();
+        System.gc();
+//        Log.d("resized","jjjj"+Base64.encodeToString(b, Base64.NO_WRAP));
+        return Base64.encodeToString(b, Base64.DEFAULT);
+    }
+
+    public String encodeImage(File path) {
+
+        AppProgressDialog.showProgressDialog(this, "Scanning..", false);
+        Bitmap bm = BitmapFactory.decodeFile(imageFile.getPath());
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        bm.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        bm.compress(Bitmap.CompressFormat.JPEG,100,baos);
         byte[] b = baos.toByteArray();
-        String encodedImage = Base64.encodeToString(b, Base64.DEFAULT);
-//        Log.d("xyz", "asd" + encodeImage);
+        encodedImage= Base64.encodeToString(b,Base64.DEFAULT);
+        AppProgressDialog.hideProgressDialog();
         return encodedImage;
     }
 
