@@ -1,10 +1,13 @@
 package com.example.myapplication;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.core.content.PermissionChecker;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -26,6 +29,7 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.security.Permission;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Timer;
@@ -33,6 +37,8 @@ import java.util.TimerTask;
 
 public class SplashActivity extends AppCompatActivity {
 
+    Permission permissionCamera;
+    Permission permissionStorage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +48,7 @@ public class SplashActivity extends AppCompatActivity {
         startApp();
 
     }
+
 
     private void startApp() {
 
@@ -61,7 +68,7 @@ public class SplashActivity extends AppCompatActivity {
 
     }
 
-    private void requestPermision(final int type){
+    private void requestPermision(final int type) {
 
     }
 }

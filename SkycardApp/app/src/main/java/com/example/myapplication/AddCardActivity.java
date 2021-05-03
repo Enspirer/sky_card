@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -26,6 +27,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.myapplication.helper.AppProgressDialog;
+import com.google.gson.JsonArray;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -44,6 +46,11 @@ public class AddCardActivity extends AppCompatActivity {
     ImageView iViewAddCard;
     String base64file;
 
+    EditText etName, etTitle, etcompanyName, etmobileNumber, etotherMobileNumber, etEmail,
+            etwebSite,
+            etaddressLine1,
+            etadressLine2;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,13 +58,23 @@ public class AddCardActivity extends AppCompatActivity {
 
         iViewAddCard = findViewById(R.id.ivAddCardPrev);
         iViewAddCard.setImageURI(Uri.fromFile(CameraActivity.imageFile));
+        etName = findViewById(R.id.etName);
+        etTitle = findViewById(R.id.etTitle);
+        etcompanyName = findViewById(R.id.etCompanyName);
+        etmobileNumber = findViewById(R.id.etMobileNum);
+        etotherMobileNumber = findViewById(R.id.etOtherMobile);
+        etEmail = findViewById(R.id.etEmail);
+        etwebSite = findViewById(R.id.etWebSite);
+        etaddressLine1 = findViewById(R.id.etAddLine1);
+        etadressLine2 = findViewById(R.id.etAddLine2);
 
         base64file = CameraActivity.resizedImage;
-        Log.d("ddddddddddddddddddd", "dddddddddddddd " + base64file);
+//        Log.d("ddddddddddddddddddd", "dddddddddddddd " + base64file);
 
         sendCard();
 
     }
+
 
     private void sendCard() {
         AppProgressDialog.showProgressDialog(this, "Scanning..", false);
@@ -80,11 +97,69 @@ public class AddCardActivity extends AppCompatActivity {
                 AppProgressDialog.hideProgressDialog();
                 Log.d("ddddddd", "ffffffffffffffffffffff");
                 Log.d("ddddddd", "ccccc " + response);
+
+                try {
+//                    if (!response.isNull("image")) {
+//                        String image = response.getString("image");
+//
+//                    }
+
+                    if (!response.isNull("email")) {
+                        JSONArray emailArray = response.getJSONArray("email");
+                        if (emailArray.length() > 0) {
+                            String email = emailArray.getString(0);
+                            etEmail.setText(email);
+                        }
+                    }
+
+                    if (!response.isNull("phone_number")) {
+                        JSONArray numArray = response.getJSONArray("phone_number");
+                        if (numArray.length() > 0) {
+                            String mobileNum1 = numArray.getString(0);
+                            etmobileNumber.setText(mobileNum1);
+                            Log.d("ssss","ssss"+mobileNum1);
+
+                        }
+                        if (numArray.length()>1) {
+                            String mobileNum2 = numArray.getString(1);
+                            etotherMobileNumber.setText(mobileNum2);
+                        }
+                    }
+
+
+
+//                    etEmail.setText(response.getString("email"));
+//                    etmobileNumber.setText(response.getString("phone_number"));
+//                    etwebSite.setText(response.getString("website"));
+//                    Log.d("eeeeee", "ccccc " + etmobileNumber);
+
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+//                try {
+//                    int status = response.getInt("status");
+//                    if (status==100){
+//
+//                        JSONArray ja = response.getJSONArray("email");
+//
+//                        for (int i =0; i<ja.length();i++){
+//                           JSONObject vj =ja.getJSONObject(i);
+//                           etmobileNumber.setText(vj.getString("mobile_number"));
+//
+//                        }
+//                    }
+//                } catch (JSONException e) {
+//                    e.printStackTrace();
+//                }
+
             }
+
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.d("ddddddddddddd ", "error ");
+                Log.d("resposneerror ", "error ");
                 error.printStackTrace();
                 AppProgressDialog.hideProgressDialog();
 //                Toast.makeText(getApplicationContext(),

@@ -25,6 +25,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.example.myapplication.helper.AppProgressDialog;
@@ -45,13 +46,12 @@ public class CameraActivity extends AppCompatActivity implements SurfaceHolder.C
     public static String encodedImage;
     public static String resizedImage;
 
-
     private SurfaceView surfaceView;
     private SurfaceHolder surfaceHolder;
     private Camera camera;
-    private Button buttonConfirmImage;
-    private Button buttonCaptureImage;
+    private ImageView imageCapture;
     private ImageView imageCloseCamera;
+    private ImageView imageConfirm;
     private int cameraId;
     private int rotation;
 
@@ -62,13 +62,13 @@ public class CameraActivity extends AppCompatActivity implements SurfaceHolder.C
 
         cameraId = Camera.CameraInfo.CAMERA_FACING_BACK;
         surfaceView = findViewById(R.id.surfaceView);
-        buttonConfirmImage = findViewById(R.id.buttonConfirm);
+        imageConfirm = findViewById(R.id.iVConfirm);
         imageCloseCamera = findViewById(R.id.btnClose);
-        buttonCaptureImage = findViewById(R.id.captureImage);
+        imageCapture = findViewById(R.id.ivCaptureImage);
 
         surfaceHolder = surfaceView.getHolder();
         surfaceHolder.addCallback(this);
-        buttonCaptureImage.setOnClickListener(this);
+        imageCapture.setOnClickListener(this);
 
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
@@ -81,7 +81,7 @@ public class CameraActivity extends AppCompatActivity implements SurfaceHolder.C
             }
         });
 
-        buttonConfirmImage.setOnClickListener(new View.OnClickListener() {
+        imageConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), AddCardActivity.class);
@@ -198,7 +198,7 @@ public class CameraActivity extends AppCompatActivity implements SurfaceHolder.C
     @Override
     public void onClick(View v) {
 
-        if (v.getId() == R.id.captureImage) {
+        if (v.getId() == R.id.ivCaptureImage) {
             takeImage();
         }
         camera.autoFocus(myAutofocusCallback);
@@ -207,15 +207,22 @@ public class CameraActivity extends AppCompatActivity implements SurfaceHolder.C
     Camera.AutoFocusCallback myAutofocusCallback = new Camera.AutoFocusCallback() {
         @Override
         public void onAutoFocus(boolean success, Camera camera) {
-            buttonCaptureImage.setEnabled(true);
+            imageCapture.setEnabled(true);
         }
     };
 
     private void takeImage() {
+
+        AppProgressDialog.showProgressDialog(this, "Capturing...", false);
+
         camera.takePicture(null, null, new Camera.PictureCallback() {
+
 
             @Override
             public void onPictureTaken(byte[] data, Camera camera) {
+//                RelativeLayout boader_dotted = findViewById(R.id.boader_dotted);
+//                boader_dotted.getWidth();
+                AppProgressDialog.hideProgressDialog();
                 try {
                     // convert byte array into bitmap
                     Bitmap loadedImage = null;
@@ -223,20 +230,32 @@ public class CameraActivity extends AppCompatActivity implements SurfaceHolder.C
                     loadedImage = BitmapFactory.decodeByteArray(data, 0,
                             data.length);
 
+//                    float scale = 1300/1000F;
+//                    int left = (int) scale*(loadedImage.getWidth()-2464)/2;
+//                    int top = (int) scale*(loadedImage.getHeight()-1000)/2;
+//                    int width = (int) scale*1;
+//                    int height = (int) scale*1;
+//                    Log.d("width","fdfdf"+loadedImage.getWidth());
+//                    Log.d("height","fdfdf"+loadedImage.getHeight());
+
                     // rotate Image
                     Matrix rotateMatrix = new Matrix();
                     rotateMatrix.postRotate(rotation);
+
+//                    rotatedBitmap= Bitmap.createBitmap(loadedImage, left, top, width, height,
+//                            rotateMatrix, false);
                     rotatedBitmap = Bitmap.createBitmap(loadedImage, 0, 0,
                             loadedImage.getWidth(), loadedImage.getHeight(),
                             rotateMatrix, false);
                     String state = Environment.getExternalStorageState();
                     File folder = null;
+
                     if (state.contains(Environment.MEDIA_MOUNTED)) {
-                        folder = new File(Environment.getExternalStorageDirectory() + "/Demo");
+                        folder = new File(Environment.getExternalStorageDirectory() + "/Skyapp");
                         Log.d("pathfolder", "aaaaaa" + folder);
 
                     } else {
-                        folder = new File(Environment.getExternalStorageDirectory() + "/Demo");
+                        folder = new File(Environment.getExternalStorageDirectory() + "/Skyapp");
                     }
 
                     boolean success = true;
@@ -282,12 +301,13 @@ public class CameraActivity extends AppCompatActivity implements SurfaceHolder.C
                     e.printStackTrace();
                 }
 
-                buttonCaptureImage.setEnabled(false);
+                imageCapture.setEnabled(false);
                 if (camera != null) {
                     camera.stopPreview();
                     camera.release();
                     camera = null;
                 }
+
 
 //                encodedImage = encodeImage(imageFile);
 //                Log.d("encodedetails","ddfdfd"+encodedImage);
@@ -297,44 +317,56 @@ public class CameraActivity extends AppCompatActivity implements SurfaceHolder.C
 //                ByteArrayOutputStream baos = new ByteArrayOutputStream();
 //                bm.compress(Bitmap.CompressFormat.JPEG,100,baos);
 //                byte[] b = baos.toByteArray();
-                encodedImage= encodeImage(imageFile);
-                resizedImage=resizeBase64Image(encodedImage);
+
+                encodedImage = encodeImage(imageFile);
+                resizedImage = resizeBase64Image(encodedImage);
+
             }
         });
+
+
         Toast.makeText(getApplicationContext(), "Image Captured", Toast.LENGTH_SHORT).show();
-        buttonCaptureImage.setVisibility(View.INVISIBLE);
+
+        imageConfirm.setVisibility(View.VISIBLE);
+
+
     }
 
-    public static String resizeBase64Image(String base64){
-        byte [] encodeByte=Base64.decode(base64.getBytes(),Base64.DEFAULT);
-        BitmapFactory.Options options=new BitmapFactory.Options();
-        options.inPurgeable = true;
-        Bitmap bm = BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length,options);
+    public static String resizeBase64Image(String base64) {
 
-        if(bm.getHeight() <= 400 && bm.getWidth() <= 400){
+        byte[] encodeByte = Base64.decode(base64.getBytes(), Base64.DEFAULT);
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inPurgeable = true;
+        Bitmap bm = BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length, options);
+
+        if (bm.getHeight() <= 800 && bm.getWidth() <= 800) {
             return base64;
         }
-        bm= Bitmap.createScaledBitmap(bm, 400, 400, false);
+        bm = Bitmap.createScaledBitmap(bm, 800, 800, false);
 
-        ByteArrayOutputStream baos=new  ByteArrayOutputStream();
-        bm.compress(Bitmap.CompressFormat.JPEG,100, baos);
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bm.compress(Bitmap.CompressFormat.JPEG, 100, baos);
 
-        byte [] b=baos.toByteArray();
+        byte[] b = baos.toByteArray();
         System.gc();
+
 //        Log.d("resized","jjjj"+Base64.encodeToString(b, Base64.NO_WRAP));
+
         return Base64.encodeToString(b, Base64.DEFAULT);
+
+
     }
 
     public String encodeImage(File path) {
 
-        AppProgressDialog.showProgressDialog(this, "Scanning..", false);
         Bitmap bm = BitmapFactory.decodeFile(imageFile.getPath());
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        bm.compress(Bitmap.CompressFormat.JPEG,100,baos);
+        bm.compress(Bitmap.CompressFormat.JPEG, 100, baos);
         byte[] b = baos.toByteArray();
-        encodedImage= Base64.encodeToString(b,Base64.DEFAULT);
+        encodedImage = Base64.encodeToString(b, Base64.DEFAULT);
         AppProgressDialog.hideProgressDialog();
         return encodedImage;
+
     }
 
     private void alertCameraDialog() {

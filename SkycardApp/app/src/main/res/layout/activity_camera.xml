@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black"
+    tools:context=".CameraActivity">
+
+
+
+    <SurfaceView
+        android:id="@+id/surfaceView"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"/>
+
+    <ImageView
+        android:id="@+id/ivFlash"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="15dp"
+        android:layout_marginBottom="30dp"
+        android:src="@drawable/ic_icon_material_flash_auto"
+        android:text="Flash" />
+
+    <ImageView
+    android:id="@+id/ivGallery"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignParentBottom="true"
+    android:layout_marginLeft="90dp"
+    android:layout_marginBottom="30dp"
+    android:src="@drawable/ic_icon_gallery_photo"
+    android:text="Gallery" />
+
+    <ImageView
+        android:id="@+id/ivCaptureImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerInParent="true"
+        android:layout_marginBottom="20dp"
+        android:src="@drawable/ic_capture"
+        android:text="Capture" />
+
+    <ImageView
+        android:id="@+id/iVConfirm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginRight="65dp"
+        android:layout_marginBottom="30dp"
+        android:src="@drawable/ic_confirm"
+        android:text="Confirm"
+        android:visibility="invisible"/>
+
+
+    <ImageView
+        android:id="@+id/btnClose"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@drawable/ic_icon_material_close"
+        android:text="close" />
+
+    <RelativeLayout
+        android:background="@drawable/boader_dotted"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:layout_marginBottom="100dp"
+        android:layout_marginTop="60dp"/>
+
+
+</RelativeLayout>

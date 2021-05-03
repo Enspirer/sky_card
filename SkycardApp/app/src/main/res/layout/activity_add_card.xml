@@ -53,7 +53,9 @@
                 android:id="@+id/ivAddCardPrev"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="20dp"
                 android:layout_gravity="center_horizontal"/>
 
         </LinearLayout>
@@ -81,7 +83,7 @@
                         android:text="Name" />
 
                     <EditText
-                        android:id="@+id/etLastName"
+                        android:id="@+id/etName"
                         style="@style/EditLoginTextStyle"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
@@ -148,7 +150,7 @@
                     android:text="Other Number" />
 
                 <EditText
-                    android:id="@+id/etEmailadd"
+                    android:id="@+id/etOtherMobile"
                     style="@style/EditLoginTextStyle"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
@@ -165,7 +167,7 @@
                     android:text="Email" />
 
                 <EditText
-                    android:id="@+id/etWebSite"
+                    android:id="@+id/etEmail"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:autofillHints=""
@@ -181,7 +183,7 @@
                     android:text="Web Site" />
 
                 <EditText
-                    android:id="@+id/etEmail"
+                    android:id="@+id/etWebSite"
                     style="@style/EditLoginTextStyle"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
