@@ -1,8 +1,13 @@
 package com.example.myapplication;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
+import android.Manifest;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -10,6 +15,7 @@ import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -46,10 +52,14 @@ public class AddCardActivity extends AppCompatActivity {
     ImageView iViewAddCard;
     String base64file;
 
+    Button buttonSaveCard, buttonReScanCard;
+
     EditText etName, etTitle, etcompanyName, etmobileNumber, etotherMobileNumber, etEmail,
             etwebSite,
             etaddressLine1,
             etadressLine2;
+
+    private static final int CONTACT_PERMISSION_CODE = 100;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,10 +78,19 @@ public class AddCardActivity extends AppCompatActivity {
         etaddressLine1 = findViewById(R.id.etAddLine1);
         etadressLine2 = findViewById(R.id.etAddLine2);
 
+        buttonSaveCard = findViewById(R.id.btnSaveCard);
+        buttonReScanCard = findViewById(R.id.btnReScan);
+
         base64file = CameraActivity.resizedImage;
-//        Log.d("ddddddddddddddddddd", "dddddddddddddd " + base64file);
 
         sendCard();
+
+//        buttonSaveCard.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//            }
+//        });
 
     }
 
@@ -91,12 +110,11 @@ public class AddCardActivity extends AppCompatActivity {
         JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.POST,
                 url, obj, new Response.Listener<JSONObject>() {
 
-
             @Override
             public void onResponse(JSONObject response) {
                 AppProgressDialog.hideProgressDialog();
-                Log.d("ddddddd", "ffffffffffffffffffffff");
-                Log.d("ddddddd", "ccccc " + response);
+//                Log.d("ddddddd", "ffffffffffffffffffffff");
+//                Log.d("ddddddd", "ccccc " + response);
 
                 try {
 //                    if (!response.isNull("image")) {
@@ -117,42 +135,18 @@ public class AddCardActivity extends AppCompatActivity {
                         if (numArray.length() > 0) {
                             String mobileNum1 = numArray.getString(0);
                             etmobileNumber.setText(mobileNum1);
-                            Log.d("ssss","ssss"+mobileNum1);
+                            Log.d("ssss", "ssss" + mobileNum1);
 
                         }
-                        if (numArray.length()>1) {
+                        if (numArray.length() > 1) {
                             String mobileNum2 = numArray.getString(1);
                             etotherMobileNumber.setText(mobileNum2);
                         }
                     }
 
-
-
-//                    etEmail.setText(response.getString("email"));
-//                    etmobileNumber.setText(response.getString("phone_number"));
-//                    etwebSite.setText(response.getString("website"));
-//                    Log.d("eeeeee", "ccccc " + etmobileNumber);
-
-
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
-//                try {
-//                    int status = response.getInt("status");
-//                    if (status==100){
-//
-//                        JSONArray ja = response.getJSONArray("email");
-//
-//                        for (int i =0; i<ja.length();i++){
-//                           JSONObject vj =ja.getJSONObject(i);
-//                           etmobileNumber.setText(vj.getString("mobile_number"));
-//
-//                        }
-//                    }
-//                } catch (JSONException e) {
-//                    e.printStackTrace();
-//                }
 
             }
 
@@ -170,7 +164,7 @@ public class AddCardActivity extends AppCompatActivity {
         }) {
             @Override
             protected Response<JSONObject> parseNetworkResponse(NetworkResponse response) {
-                Log.d("dddddddddddddddd", "error 2 " + response.statusCode);
+//                Log.d("dddddddddddddddd", "error 2 " + response.statusCode);
                 if (response.statusCode != 200) {
                     return Response.error(new ParseError(response));
                 } else {
@@ -201,6 +195,10 @@ public class AddCardActivity extends AppCompatActivity {
         RequestQueue queue = Volley.newRequestQueue(this);
         queue.add(jsonObjReq);
     }
+
+
+
 }
+
 
 

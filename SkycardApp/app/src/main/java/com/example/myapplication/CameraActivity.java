@@ -93,10 +93,9 @@ public class CameraActivity extends AppCompatActivity implements SurfaceHolder.C
     @Override
     public void surfaceCreated(SurfaceHolder holder) {
         if (!openCamera(Camera.CameraInfo.CAMERA_FACING_BACK)) {
-            alertCameraDialog();
+//            alertCameraDialog();
         }
     }
-
     private boolean openCamera(int id) {
         boolean result = false;
         cameraId = id;
@@ -186,7 +185,6 @@ public class CameraActivity extends AppCompatActivity implements SurfaceHolder.C
 
     @Override
     public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
-
 
     }
 
@@ -324,11 +322,9 @@ public class CameraActivity extends AppCompatActivity implements SurfaceHolder.C
             }
         });
 
-
         Toast.makeText(getApplicationContext(), "Image Captured", Toast.LENGTH_SHORT).show();
 
         imageConfirm.setVisibility(View.VISIBLE);
-
 
     }
 
@@ -339,10 +335,10 @@ public class CameraActivity extends AppCompatActivity implements SurfaceHolder.C
         options.inPurgeable = true;
         Bitmap bm = BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length, options);
 
-        if (bm.getHeight() <= 800 && bm.getWidth() <= 800) {
+        if (bm.getHeight() <= 400 && bm.getWidth() <= 400) {
             return base64;
         }
-        bm = Bitmap.createScaledBitmap(bm, 800, 800, false);
+        bm = Bitmap.createScaledBitmap(bm, 400, 400, false);
 
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         bm.compress(Bitmap.CompressFormat.JPEG, 100, baos);
@@ -350,11 +346,7 @@ public class CameraActivity extends AppCompatActivity implements SurfaceHolder.C
         byte[] b = baos.toByteArray();
         System.gc();
 
-//        Log.d("resized","jjjj"+Base64.encodeToString(b, Base64.NO_WRAP));
-
         return Base64.encodeToString(b, Base64.DEFAULT);
-
-
     }
 
     public String encodeImage(File path) {
@@ -369,18 +361,18 @@ public class CameraActivity extends AppCompatActivity implements SurfaceHolder.C
 
     }
 
-    private void alertCameraDialog() {
-        AlertDialog.Builder dialog = createAlert(CameraActivity.this,
-                "Camera info", "error to open camera");
-        dialog.setNegativeButton("OK", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.cancel();
-            }
-        });
-
-        dialog.show();
-    }
+//    private void alertCameraDialog() {
+//        AlertDialog.Builder dialog = createAlert(CameraActivity.this,
+//                "Camera info", "error to open camera");
+//        dialog.setNegativeButton("OK", new DialogInterface.OnClickListener() {
+//            @Override
+//            public void onClick(DialogInterface dialog, int which) {
+//                dialog.cancel();
+//            }
+//        });
+//
+//        dialog.show();
+//    }
 
     private AlertDialog.Builder createAlert(Context context, String title, String message) {
 
