@@ -6,6 +6,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -49,7 +50,7 @@ import java.util.Map;
 
 public class AddCardActivity extends AppCompatActivity {
 
-    ImageView iViewAddCard;
+    ImageView iViewAddCard, ivCloseCard, ivbackCard;
     String base64file;
 
     Button buttonSaveCard, buttonReScanCard;
@@ -68,6 +69,8 @@ public class AddCardActivity extends AppCompatActivity {
 
         iViewAddCard = findViewById(R.id.ivAddCardPrev);
         iViewAddCard.setImageURI(Uri.fromFile(CameraActivity.imageFile));
+        ivbackCard = findViewById(R.id.ivbackCard);
+        ivCloseCard = findViewById(R.id.ivCloseCard);
         etName = findViewById(R.id.etName);
         etTitle = findViewById(R.id.etTitle);
         etcompanyName = findViewById(R.id.etCompanyName);
@@ -83,7 +86,26 @@ public class AddCardActivity extends AppCompatActivity {
 
         base64file = CameraActivity.resizedImage;
 
+        ivCloseCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+        ivbackCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(),CameraActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
         sendCard();
+
 
 //        buttonSaveCard.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -195,7 +217,6 @@ public class AddCardActivity extends AppCompatActivity {
         RequestQueue queue = Volley.newRequestQueue(this);
         queue.add(jsonObjReq);
     }
-
 
 
 }

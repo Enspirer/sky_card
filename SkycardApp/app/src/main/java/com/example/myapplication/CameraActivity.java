@@ -86,6 +86,7 @@ public class CameraActivity extends AppCompatActivity implements SurfaceHolder.C
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), AddCardActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
     }

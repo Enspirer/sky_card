@@ -6,25 +6,31 @@
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WRITE_CONTACTS"/>
-
+    <uses-permission android:name="android.permission.WRITE_CONTACTS" />
     <uses-permission
         android:name="android.permission.FLASHLIGHT"
         android:permissionGroup="android.permission-group.HARDWARE_CONTROLS"
         android:protectionLevel="normal" />
 
-
     <application
         android:allowBackup="true"
+        android:hardwareAccelerated="false"
         android:icon="@mipmap/sky_card_logo_foreground"
         android:label="SkyApp"
+        android:largeHeap="true"
+        android:requestLegacyExternalStorage="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:largeHeap="true"
-        android:hardwareAccelerated="false"
-        android:requestLegacyExternalStorage="true"
         android:theme="@style/Theme.MyApplication"
         android:usesCleartextTraffic="true">
+        <activity android:name=".SettingsActivity"></activity>
+        <activity android:name=".ShareCardsActivity" />
+        <activity android:name=".SkyNetworkActivity" />
+        <activity android:name=".SkyDailyActivity" />
+        <activity android:name=".MyCardsActivity" />
+        <activity android:name=".CardHolderActivity" />
+        <activity android:name=".AddCardsActivity" />
+        <activity android:name=".NotificationsActivity" />
         <activity android:name=".AddCardActivity" />
         <activity android:name=".CameraActivity" />
         <activity
@@ -41,7 +47,8 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".MainActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".SignUpActivity"
             android:screenOrientation="portrait" />

@@ -5,20 +5,16 @@
         android:id="@+id/naviHome"
         android:icon="@drawable/ic_home"/>
     <item
-        android:id="@+id/naviCon"
-
+        android:id="@+id/navimycards"
         android:icon="@drawable/ic_mycards"/>
     <item
         android:id="@+id/naviAddacrd"
-
         android:icon="@drawable/ic_addcard"/>
     <item
-        android:id="@+id/naviMycards"
-
+        android:id="@+id/navicardholder"
         android:icon="@drawable/ic_card_holder"/>
     <item
-        android:id="@+id/naviShare"
-
+        android:id="@+id/navisharecards"
         android:icon="@drawable/ic_sharecard"/>
 
 

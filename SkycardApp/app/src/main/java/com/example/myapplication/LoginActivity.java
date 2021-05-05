@@ -19,6 +19,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.myapplication.helper.AppProgressDialog;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -32,6 +33,7 @@ public class LoginActivity extends AppCompatActivity {
     Button buttonLogin, buttonSignUp;
 
     EditText etPass, ete_mail;
+    String userName, password;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +45,10 @@ public class LoginActivity extends AppCompatActivity {
 
         buttonSignUp = findViewById(R.id.btnSignUp);
         buttonLogin = findViewById(R.id.btnLogin);
+
+        userName = ete_mail.getText().toString();
+        password = etPass.getText().toString();
+
 
         buttonSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,62 +64,65 @@ public class LoginActivity extends AppCompatActivity {
                 requestLogin();
             }
         });
+
     }
 
     private void requestLogin() {
 
-        String url = "http://thechaptersrilanka.com/sky_card_backend/public/api/auth/login";
-        JSONObject obj = new JSONObject();
+            AppProgressDialog.showProgressDialog(this, "Login...", true);
 
-        try {
+            String url = "http://thechaptersrilanka.com/sky_card_backend/public/api/auth/login";
+            JSONObject obj = new JSONObject();
 
-            obj.put("password", etPass.getText().toString());
-            obj.put("email", ete_mail.getText().toString());
-            obj.put("remember_me", 1);
+            try {
 
-        } catch (JSONException e) {
-            e.printStackTrace();
-            Toast.makeText(LoginActivity.this, "Internet Connection Failed",
-                    Toast.LENGTH_SHORT).show();
-        }
+                obj.put("password", etPass.getText().toString());
+                obj.put("email", ete_mail.getText().toString());
+                obj.put("remember_me", 1);
 
-        Log.d("Send Login Request", "login request " + obj);
+            } catch (JSONException e) {
+                e.printStackTrace();
+                Toast.makeText(LoginActivity.this, "Internet Connection Failed",
+                        Toast.LENGTH_SHORT).show();
+            }
 
-        JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.POST,
-                url, obj, new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-                Log.d("Response", response.toString());
+//            Log.d("Send Login Request", "login request " + obj);
 
-                //stored as mypref
-                SharedPreferences sharedPref = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
-                SharedPreferences.Editor editor = sharedPref.edit();
+            JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.POST,
+                    url, obj, new Response.Listener<JSONObject>() {
+                @Override
+                public void onResponse(JSONObject response) {
+                    Log.d("Response", response.toString());
 
-                try {
-                    //store the key and its values
-                    editor.putString("token", response.getString("access_token"));
-                } catch (JSONException e) {
-                    e.printStackTrace();
+                    //stored as mypref
+                    SharedPreferences sharedPref = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sharedPref.edit();
+
+                    try {
+                        //store the key and its values
+                        editor.putString("token", response.getString("access_token"));
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    editor.commit();
+
+                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                    startActivity(intent);
+                    finish();
+                    Toast.makeText(getApplicationContext(), "Login Successful", Toast.LENGTH_SHORT).show();
+
                 }
-                editor.commit();
+            }, new Response.ErrorListener() {
 
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-               startActivity(intent);
-               finish();
-                Toast.makeText(getApplicationContext(),"Login Successful", Toast.LENGTH_SHORT).show();
-
-            }
-        }, new Response.ErrorListener() {
-
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                error.printStackTrace();
-
-                Log.d("Error", "error " + error.getMessage());
-                Toast.makeText(getApplicationContext(),
-                        error.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    error.printStackTrace();
+                    AppProgressDialog.hideProgressDialog();
+                    Log.d("Error", "Invalid Username and the password " + error.getMessage());
+                    Toast.makeText(getApplicationContext(),"Invalid Username or Password",
+                            Toast.LENGTH_SHORT).show();
+                }
+            });
 
 //        {
 //            @Override
@@ -130,10 +139,11 @@ public class LoginActivity extends AppCompatActivity {
 //            }
 //        };
 
-        RequestQueue queue = Volley.newRequestQueue(this);
-        queue.add(jsonObjReq);
+            RequestQueue queue = Volley.newRequestQueue(this);
+            queue.add(jsonObjReq);
+        }
+
+
 
     }
 
-
-}

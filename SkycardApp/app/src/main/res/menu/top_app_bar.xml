@@ -1,27 +1,45 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
 
-
-
+    <group android:checkableBehavior="single">
     <item
-        android:id="@+id/logout"
-        android:title="LOGOUT" />
+        android:id="@+id/naviNotifications"
+        android:title="Notifications"
+        android:icon="@drawable/navi_notifications" />
     <item
-        android:id="@+id/naviHome"
-        android:title="Home" />
-    <item
-        android:id="@+id/naviCon"
-        android:title="My Cards"
-        android:icon="@drawable/ic_mycards"/>
-    <item
-        android:id="@+id/naviAddacrd"
-        android:title="Add card"
-       />
-    <item
-        android:id="@+id/naviMycards"
-        android:title="Card Holder"
+        android:id="@+id/naviAddcard"
+        android:title="Add Card"
+        android:icon="@drawable/navi_addcard"
         />
     <item
-        android:id="@+id/naviShare"
-        android:title="Share" />
+        android:id="@+id/naviCardHolder"
+        android:title="Card Holder"
+        android:icon="@drawable/navi_cardholder" />
+    <item
+        android:id="@+id/naviMyCards"
+        android:title="My Cards"
+        android:icon="@drawable/navi_mycards" />
+    <item
+        android:id="@+id/naviSKyDaily"
+        android:title="Sky Daily"
+        android:icon="@drawable/navi_skydaily" />
+    <item
+        android:id="@+id/naviSkyNetwork"
+        android:title="Sky Network"
+        android:icon="@drawable/navi_skynetwork" />
+    <item
+        android:id="@+id/naviShareCards"
+        android:title="Share Cards"
+        android:icon="@drawable/navi_sharecard" />
+    <item
+        android:id="@+id/naviSettings"
+        android:title="Settings"
+        android:icon="@drawable/navi_settings" />
+    <item
+        android:id="@+id/naviLogOut"
+        android:title="Log Out"
+        android:icon="@drawable/navi_logout"/>
+    </group>
 </menu>

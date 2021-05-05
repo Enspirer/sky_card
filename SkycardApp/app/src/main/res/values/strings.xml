@@ -9,8 +9,7 @@
     <string name="next">Next</string>
     <string name="previous">Previous</string>
 
-    <string name="hello_first_fragment">Hello first fragment</string>
-    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+
     <string name="sky_daily">Sky Daily</string>
     <string name="sky_network">Sky Network</string>
     <string name="share_cards">Share Cards</string>
@@ -44,4 +43,37 @@
     <string name="my">My</string>
     <string name="sky">Sky</string>
     <string name="daily">daily</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="openDrawer">open_drawer</string>
+    <string name="closeDrawer">close_drawer</string>
+
+    <!-- Navigation Drawer menu labels -->
+    <string name="nav_notifications">Notifications</string>
+    <string name="nav_add_card">Add Card</string>
+    <string name="nav_card_holder">Card Holder</string>
+    <string name="nav_sky_daily">Sky Daily</string>
+    <string name="nav_sky_network">Sky Network</string>
+    <string name="nav_share_cards">Share Cards</string>
+    <string name="nav_settings">Settings</string>
+    <string name="nav_logout">Log Out</string>
+
+    <!-- Toolbar titles when navigation menu item is selected -->
+    <string-array name="nav_item_activity_titles">
+        <item>Notifications</item>
+        <item>Add Card</item>
+        <item>My Cards</item>
+        <item>Sky Daily</item>
+        <item>Sky Network</item>
+        <item>Share Cards</item>
+        <item>Settings</item>
+        <item>Log Out</item>
+    </string-array>
+
+    <string name="action_logout">Logout</string>
+    <string name="privacy_policy">Privacy Policy</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 </resources>

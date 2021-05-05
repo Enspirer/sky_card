@@ -4,6 +4,13 @@
         <item name="android:background">@color/black_overlay</item>
     </style>
 
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+
+
+    </style>
+
     <style name="Widget.Theme.MyApplication.ButtonBar.Fullscreen" parent="">
         <item name="android:background">@color/black_overlay</item>
     </style>
@@ -53,6 +60,5 @@
         <item name="android:textColor">#FFFFFF</item>
         <item name="android:textAlignment">center</item>
     </style>
-
 
 </resources>

@@ -67,9 +67,9 @@
                     style="@style/EditLoginTextStyle"
                     android:layout_width="match_parent"
                     android:layout_height="35dp"
-                    android:autofillHints=""
                     android:background="@drawable/edittext_top_curve_gray"
-                    android:inputType="textEmailAddress" />
+                    android:inputType="textEmailAddress"
+                    android:textColor="@color/black"/>
 
                 <TextView
                     android:layout_width="match_parent"
@@ -92,9 +92,10 @@
                         style="@style/EditLoginTextStyle"
                         android:layout_width="match_parent"
                         android:layout_height="35dp"
-                        android:background="@drawable/edittext_bottom_curve_gray"
                         android:ems="10"
-                        android:inputType="textPassword" />
+                        android:inputType="textPassword"
+                        android:background="@drawable/edittext_bottom_curve_gray"
+                        android:textColor="@color/black"/>
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <RelativeLayout
