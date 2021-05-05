@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,8 +36,9 @@ public class MainActivity extends AppCompatActivity {
     private BottomNavigationView bottomNavigationView;
     private NavigationView topNavigationView;
     private DrawerLayout drawer;
-    private LinearLayout cvAddCard, cvCardHolder, cvMyCards, cvSkyDaily, cvSkyNetwork, cvShareCards,
+    private CardView cvAddCard, cvCardHolder, cvMyCards, cvSkyDaily, cvSkyNetwork, cvShareCards,
             cvSkyVip, cvSkySmiles, cvSkyChats;
+
 
     private Toolbar toolbar;
 
@@ -248,5 +250,23 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_bell,menu);
+        return true;
+    }
 
+    @Override
+    public boolean onOptionsItemSelected( MenuItem item) {
+       switch (item.getItemId()){
+           case  R.id.bell:
+               Intent intent = new Intent(getApplicationContext(),NotificationsActivity.class);
+               startActivity(intent);
+               return true;
+           default:
+               return super.onOptionsItemSelected(item);
+       }
+
+    }
 }
