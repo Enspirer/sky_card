@@ -25,6 +25,7 @@
                 android:layout_height="?attr/actionBarSize"
                 android:background="#FFFFFF"
                 android:elevation="4dp"
+                app:navigationIcon="@drawable/ic_baseline_menu_24"
                 android:theme="@style/AppTheme.NoActionBar"/>
         </LinearLayout>
 
@@ -83,6 +84,7 @@
                         android:layout_rowWeight="1"
                         android:layout_column="0"
                         android:layout_columnWeight="1"
+                        app:cardBackgroundColor="#F9F9F9"
                         app:cardUseCompatPadding="true">
 
                         <LinearLayout
@@ -91,7 +93,6 @@
                             android:layout_centerHorizontal="true"
                             android:layout_centerVertical="true"
                             android:layout_gravity="center"
-                            android:backgroundTint="@color/white"
                             android:orientation="vertical">
 
                             <ImageView
@@ -119,7 +120,8 @@
                         android:layout_rowWeight="1"
                         android:layout_column="1"
                         android:layout_columnWeight="1"
-                        app:cardUseCompatPadding="true">
+                        app:cardUseCompatPadding="true"
+                        app:cardBackgroundColor="#F9F9F9">
 
                         <LinearLayout
                             android:layout_width="wrap_content"
@@ -154,7 +156,8 @@
                         android:layout_rowWeight="1"
                         android:layout_column="2"
                         android:layout_columnWeight="1"
-                        app:cardUseCompatPadding="true">
+                        app:cardUseCompatPadding="true"
+                        app:cardBackgroundColor="#F9F9F9">
 
                         <LinearLayout
                             android:layout_width="wrap_content"
@@ -187,7 +190,8 @@
                         android:layout_rowWeight="1"
                         android:layout_column="0"
                         android:layout_columnWeight="1"
-                        app:cardUseCompatPadding="true">
+                        app:cardUseCompatPadding="true"
+                        app:cardBackgroundColor="#F9F9F9">
 
                         <LinearLayout
                             android:layout_width="wrap_content"
@@ -220,7 +224,8 @@
                         android:layout_rowWeight="1"
                         android:layout_column="1"
                         android:layout_columnWeight="1"
-                        app:cardUseCompatPadding="true">
+                        app:cardUseCompatPadding="true"
+                        app:cardBackgroundColor="#F9F9F9">
 
                         <LinearLayout
                             android:layout_width="wrap_content"
@@ -254,7 +259,8 @@
                         android:layout_rowWeight="1"
                         android:layout_column="2"
                         android:layout_columnWeight="1"
-                        app:cardUseCompatPadding="true">
+                        app:cardUseCompatPadding="true"
+                        app:cardBackgroundColor="#F9F9F9">
 
                         <LinearLayout
                             android:layout_width="wrap_content"
@@ -288,7 +294,8 @@
                         android:layout_rowWeight="1"
                         android:layout_column="0"
                         android:layout_columnWeight="1"
-                        app:cardUseCompatPadding="true">
+                        app:cardUseCompatPadding="true"
+                        app:cardBackgroundColor="#F9F9F9">
 
                         <LinearLayout
                             android:layout_width="wrap_content"
@@ -324,7 +331,8 @@
                         android:layout_rowWeight="1"
                         android:layout_column="1"
                         android:layout_columnWeight="1"
-                        app:cardUseCompatPadding="true">
+                        app:cardUseCompatPadding="true"
+                        app:cardBackgroundColor="#F9F9F9">
 
                         <LinearLayout
                             android:layout_width="wrap_content"
@@ -358,7 +366,8 @@
                         android:layout_rowWeight="1"
                         android:layout_column="2"
                         android:layout_columnWeight="1"
-                        app:cardUseCompatPadding="true">
+                        app:cardUseCompatPadding="true"
+                        app:cardBackgroundColor="#F9F9F9">
 
                         <LinearLayout
                             android:layout_width="wrap_content"
@@ -471,7 +480,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:contextClickable="true"
             app:itemBackground="@color/white"
             app:itemIconSize="35dp"
             app:itemIconTint="@drawable/selector"
