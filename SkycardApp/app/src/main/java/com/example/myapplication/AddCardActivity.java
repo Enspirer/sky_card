@@ -153,16 +153,32 @@ public class AddCardActivity extends AppCompatActivity {
 //                Log.d("ddddddd", "ccccc " + response);
 
                 try {
-//                    if (!response.isNull("image")) {
-//                        String image = response.getString("image");
-//
-//                    }
+                    if (!response.isNull("website")) {
+                        String website = response.getString("website");
+                        etwebSite.setText(website);
+                    }
+
+                    if (!response.isNull("title")) {
+                        String title = response.getString("title");
+                        etTitle.setText(title);
+                    }
+
+                    if (!response.isNull("name")) {
+                        JSONArray nameArray = response.getJSONArray("name");
+                        if (nameArray.length() > 0) {
+                            String name = nameArray.getString(0);
+                            etUserName.setText(name);
+                            Log.d("ssss", "ssss " + name);
+
+                        }
+                    }
 
                     if (!response.isNull("email")) {
                         JSONArray emailArray = response.getJSONArray("email");
                         if (emailArray.length() > 0) {
                             String email = emailArray.getString(0);
                             etEmail.setText(email);
+                            Log.d("ssss", "ssss" + email);
                         }
                     }
 
@@ -171,12 +187,28 @@ public class AddCardActivity extends AppCompatActivity {
                         if (numArray.length() > 0) {
                             String mobileNum1 = numArray.getString(0);
                             etmobileNumber.setText(mobileNum1);
-//                            Log.d("ssss", "ssss" + mobileNum1);
+                            Log.d("ssss", "ssss" + mobileNum1);
 
                         }
                         if (numArray.length() > 1) {
                             String mobileNum2 = numArray.getString(1);
                             etotherMobileNumber.setText(mobileNum2);
+                            Log.d("ssss", "ssss" + mobileNum2);
+                        }
+                    }
+                    if (!response.isNull("address")) {
+                        JSONArray addressArray = response.getJSONArray("address");
+                        if (addressArray.length() > 0) {
+                            String addressLine1 = addressArray.getString(0);
+                            etaddressLine1.setText(addressLine1);
+                            Log.d("ssss", "ssss " + addressLine1);
+
+                        }
+                        if (addressArray.length() > 1) {
+                            String addressLine2 = addressArray.getString(1);
+                            etaddressLine2.setText(addressLine2);
+                            Log.d("ssss", "ssss " + addressLine2);
+
                         }
                     }
 
@@ -189,7 +221,7 @@ public class AddCardActivity extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.d("resposneerror ", "error ");
+                Log.d("resposne error ", "error ");
                 error.printStackTrace();
                 AppProgressDialog.hideProgressDialog();
 //                Toast.makeText(getApplicationContext(),

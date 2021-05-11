@@ -21,9 +21,12 @@
         android:requestLegacyExternalStorage="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.MyApplication"
+        android:theme="@style/AppTheme.NoActionBar"
         android:usesCleartextTraffic="true">
-        <activity android:name=".SettingsActivity"></activity>
+        <activity android:name=".ViewCardActivity"></activity>
+        <activity android:name=".PageNotFoundActivity" />
+        <activity android:name=".ComingSoonActivity" />
+        <activity android:name=".SettingsActivity" />
         <activity android:name=".ShareCardsActivity" />
         <activity android:name=".SkyNetworkActivity" />
         <activity android:name=".SkyDailyActivity" />

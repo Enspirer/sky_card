@@ -34,6 +34,7 @@ import com.example.myapplication.helper.AppProgressDialog;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -43,6 +44,8 @@ import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
+    public static String BASE_URL = "";
+
     private BottomNavigationView bottomNavigationView;
     private NavigationView topNavigationView;
     private DrawerLayout drawer;
@@ -51,8 +54,8 @@ public class MainActivity extends AppCompatActivity {
     private ImageView profilePic;
     private Toolbar toolbar;
     private TextView tvFullName;
+    private TextView tvEmail;
     private View navHeader;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +68,7 @@ public class MainActivity extends AppCompatActivity {
         navHeader = topNavigationView.getHeaderView(0);
         profilePic = navHeader.findViewById(R.id.ivProfilePic);
         tvFullName = navHeader.findViewById(R.id.tvProfileName);
+        tvEmail = navHeader.findViewById(R.id.tvMemberEmail);
 
         toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle("");
@@ -104,11 +108,11 @@ public class MainActivity extends AppCompatActivity {
                     startActivity(intent);
                 }
                 if (item.getItemId() == R.id.navicardholder) {
-                    Intent intent = new Intent(getApplicationContext(), CardHolderActivity.class);
+                    Intent intent = new Intent(getApplicationContext(), ComingSoonActivity.class);
                     startActivity(intent);
                 }
                 if (item.getItemId() == R.id.navisharecards) {
-                    Intent intent = new Intent(getApplicationContext(), ShareCardsActivity.class);
+                    Intent intent = new Intent(getApplicationContext(), ComingSoonActivity.class);
                     startActivity(intent);
                 }
 
@@ -121,7 +125,7 @@ public class MainActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(MenuItem item) {
 
                 if (item.getItemId() == R.id.naviNotifications) {
-                    Intent intent = new Intent(getApplicationContext(), NotificationsActivity.class);
+                    Intent intent = new Intent(getApplicationContext(), ComingSoonActivity.class);
                     startActivity(intent);
                 }
                 if (item.getItemId() == R.id.naviAddcard) {
@@ -185,10 +189,19 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        cvCardHolder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), ComingSoonActivity.class);
+                startActivity(intent);
+            }
+        });
+
+
         cvSkyDaily.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), SkyDailyActivity.class);
+                Intent intent = new Intent(getApplicationContext(), ComingSoonActivity.class);
                 startActivity(intent);
 
             }
@@ -197,24 +210,17 @@ public class MainActivity extends AppCompatActivity {
         cvCardHolder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), CardHolderActivity.class);
+                Intent intent = new Intent(getApplicationContext(), ComingSoonActivity.class);
                 startActivity(intent);
 
             }
         });
-        cvSkyNetwork.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), SkyNetworkActivity.class);
-                startActivity(intent);
 
-            }
-        });
 
         cvShareCards.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), ShareCardsActivity.class);
+                Intent intent = new Intent(getApplicationContext(), ComingSoonActivity.class);
                 startActivity(intent);
 
             }
@@ -224,6 +230,8 @@ public class MainActivity extends AppCompatActivity {
         cvSkyVip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), ComingSoonActivity.class);
+                startActivity(intent);
 
             }
         });
@@ -231,6 +239,8 @@ public class MainActivity extends AppCompatActivity {
         cvSkySmiles.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), ComingSoonActivity.class);
+                startActivity(intent);
 
             }
         });
@@ -238,7 +248,8 @@ public class MainActivity extends AppCompatActivity {
         cvSkyChats.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(getApplicationContext(), ComingSoonActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -275,7 +286,7 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.bell:
-                Intent intent = new Intent(getApplicationContext(), NotificationsActivity.class);
+                Intent intent = new Intent(getApplicationContext(), ComingSoonActivity.class);
                 startActivity(intent);
                 return true;
             default:
@@ -300,38 +311,21 @@ public class MainActivity extends AppCompatActivity {
 
                 try {
                     if (!response.isNull("profile_picture")) {
-//                        String profilepicture = response.getString("profile_picture");
-                        Glide.with(MainActivity.this).load("profile_picture").into(profilePic);
-//                        profilePic.setImageResource(Integer.parseInt(profilepicture));
+                        String imageUrl = response.getString("profile_picture");
+                        Glide.with(MainActivity.this).load(imageUrl).override(200, 100).into(profilePic);
                     }
 
-//                    if (!response.isNull("email")) {
-//                        JSONArray emailArray = response.getJSONArray("email");
-//                        if (emailArray.length() > 0) {
-//                            String email = emailArray.getString(0);
-//                            etEmail.setText(email);
-//                        }
-//                    }
+                    if (!response.isNull("email")) {
+                        String email = response.getString("email");
+                        tvEmail.setText(email);
+                        Log.d("uuuuuu", "name " + email);
+                    }
 
                     if (!response.isNull("full_name")) {
                         String fullName = response.getString("full_name");
                         tvFullName.setText(fullName);
+                        Log.d("uuuuuu", "name " + fullName);
                     }
-
-
-//                    if (!response.isNull("phone_number")) {
-//                        JSONArray numArray = response.getJSONArray("phone_number");
-//                        if (numArray.length() > 0) {
-//                            String mobileNum1 = numArray.getString(0);
-//                            etmobileNumber.setText(mobileNum1);
-//                            Log.d("ssss", "ssss" + mobileNum1);
-//
-//                        }
-//                        if (numArray.length() > 1) {
-//                            String mobileNum2 = numArray.getString(1);
-//                            etotherMobileNumber.setText(mobileNum2);
-//                        }
-//                    }
 
                 } catch (JSONException e) {
                     e.printStackTrace();

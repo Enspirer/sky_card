@@ -58,6 +58,7 @@ public class CameraActivity extends AppCompatActivity implements SurfaceHolder.C
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+//        getSupportActionBar().hide();
         setContentView(R.layout.activity_camera);
 
         cameraId = Camera.CameraInfo.CAMERA_FACING_BACK;
