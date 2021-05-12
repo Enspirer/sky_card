@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="200dp"
+    android:background="@drawable/corner_background_addcard"
+    android:gravity="top"
+    android:theme="@style/Theme.MyApplication.AppBarOverlay">
+
+    <LinearLayout
+       android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/ivProfilePic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:layout_marginStart="25dp"
+            android:src="@mipmap/ic_launcher_round" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvProfileName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="20dp"
+                android:text=""
+                android:layout_marginStart="10dp"
+                android:layout_gravity="center"
+                android:textSize="25sp" />
+            <TextView
+                android:id="@+id/tvMemberEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:text=""
+                android:layout_gravity="center_horizontal"/>
+            <Button
+                android:id="@+id/buttonViewProfile"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/styleButtonSLogin"
+                android:text="View Profile"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginEnd="10dp"
+                android:backgroundTint="#FFFFFF"
+                android:layout_marginTop="20dp"/>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+
+
+
+</LinearLayout>

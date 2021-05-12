@@ -2,6 +2,7 @@ package com.example.myapplication;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -30,6 +32,13 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.request.target.Target;
 import com.example.myapplication.helper.AppProgressDialog;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
@@ -41,6 +50,8 @@ import org.json.JSONObject;
 import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
+
+import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -134,7 +145,7 @@ public class MainActivity extends AppCompatActivity {
 
                 }
                 if (item.getItemId() == R.id.naviCardHolder) {
-                    Intent intent = new Intent(getApplicationContext(), CardHolderActivity.class);
+                    Intent intent = new Intent(getApplicationContext(), ComingSoonActivity.class);
                     startActivity(intent);
 
                 }
@@ -144,22 +155,22 @@ public class MainActivity extends AppCompatActivity {
 
                 }
                 if (item.getItemId() == R.id.naviSKyDaily) {
-                    Intent intent = new Intent(getApplicationContext(), SkyDailyActivity.class);
+                    Intent intent = new Intent(getApplicationContext(), ComingSoonActivity.class);
                     startActivity(intent);
 
                 }
                 if (item.getItemId() == R.id.naviSkyNetwork) {
-                    Intent intent = new Intent(getApplicationContext(), SkyNetworkActivity.class);
+                    Intent intent = new Intent(getApplicationContext(), ComingSoonActivity.class);
                     startActivity(intent);
 
                 }
                 if (item.getItemId() == R.id.naviShareCards) {
-                    Intent intent = new Intent(getApplicationContext(), ShareCardsActivity.class);
+                    Intent intent = new Intent(getApplicationContext(), ComingSoonActivity.class);
                     startActivity(intent);
 
                 }
                 if (item.getItemId() == R.id.naviSettings) {
-                    Intent intent = new Intent(getApplicationContext(), SettingsActivity.class);
+                    Intent intent = new Intent(getApplicationContext(), ComingSoonActivity.class);
                     startActivity(intent);
 
                 }
@@ -312,7 +323,25 @@ public class MainActivity extends AppCompatActivity {
                 try {
                     if (!response.isNull("profile_picture")) {
                         String imageUrl = response.getString("profile_picture");
-                        Glide.with(MainActivity.this).load(imageUrl).override(200, 100).into(profilePic);
+                        Glide.with(MainActivity.this)
+                                .load(imageUrl)
+                                .listener(new RequestListener<Drawable>() {
+                            @Override
+                            public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                                return false;
+                            }
+
+                            @Override
+                            public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                                return false;
+                            }
+                        }).transition(withCrossFade())
+                                .apply(new RequestOptions()
+                                        .transform(new RoundedCorners(100))
+                                        .error(R.drawable.avatar)
+                                        .skipMemoryCache(true)
+                                        .diskCacheStrategy(DiskCacheStrategy.NONE))
+                                .override(100, 75).into(profilePic);
                     }
 
                     if (!response.isNull("email")) {
