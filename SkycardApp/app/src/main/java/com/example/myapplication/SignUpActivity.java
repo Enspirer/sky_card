@@ -21,6 +21,8 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import static com.example.myapplication.MainActivity.BASE_URL;
+
 public class SignUpActivity extends AppCompatActivity {
 
     EditText userName, userEmail, userPassword;
@@ -32,9 +34,8 @@ public class SignUpActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        getSupportActionBar().hide();
-        setContentView(R.layout.activity_sign_up);
 
+        setContentView(R.layout.activity_sign_up);
         userName = findViewById(R.id.etName);
         userEmail = findViewById(R.id.etEmail);
         userPassword = findViewById(R.id.etPassword);
@@ -64,7 +65,7 @@ public class SignUpActivity extends AppCompatActivity {
 
     private void sendSignupData() {
 
-        String url = "http://thechaptersrilanka.com/sky_card_backend/public/api/auth/signup";
+        String url = BASE_URL + "api/auth/signup";
         JSONObject obj = new JSONObject();
 
         try {
@@ -78,14 +79,11 @@ public class SignUpActivity extends AppCompatActivity {
             Toast.makeText(SignUpActivity.this, "Network connection failed",
                     Toast.LENGTH_SHORT).show();
         }
-        Log.d("Send data", "send " + obj);
 
         JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.POST,
                 url, obj, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-                Log.d("Response", response.toString());
-
 
             }
         }, new Response.ErrorListener() {
@@ -96,7 +94,6 @@ public class SignUpActivity extends AppCompatActivity {
                         error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
-
         RequestQueue queue = Volley.newRequestQueue(this);
         queue.add(jsonObjReq);
     }

@@ -33,9 +33,10 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="120dp"
+                android:layout_marginTop="100dp"
                 android:includeFontPadding="true"
-                android:text="Welcomeback " />
+                android:text="Welcome!"
+                android:textSize="20sp"/>
 
         </LinearLayout>
 
@@ -81,12 +82,12 @@
                     android:layout_height="wrap_content"
                     android:text="@string/password" />
 
-
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/etPasswordLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:passwordToggleEnabled="true">
+                    app:passwordToggleEnabled="true"
+                    app:passwordToggleTint="#1B9DFD">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/etPassword"
@@ -94,7 +95,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="35dp"
                         android:ems="10"
-                        android:inputType="textPassword"
+                        android:inputType="text"
                         android:background="@drawable/edittext_bottom_curve_gray"
                         android:textColor="@color/black"/>
                 </com.google.android.material.textfield.TextInputLayout>
@@ -128,32 +129,28 @@
                     android:layout_height="match_parent"
                     android:layout_marginTop="2dp"
                     android:backgroundTint="#1B9DFD"
-                    android:clickable="true"
                     android:focusable="true"
                     android:padding="10dp"
                     android:text="@string/log_in"
                     tools:targetApi="lollipop" />
-
-
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:text="or" />
-                <Button
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnSignUp"
                     style="@style/styleButtonSignup"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginBottom="10dp"
                     android:backgroundTint="#FFFFFF"
-                    android:clickable="true"
+                    app:strokeColor="#1E88E5"
+                    app:strokeWidth="1dp"
                     android:focusable="true"
                     android:padding="10dp"
-                    android:text="@string/sign_up"
-                    tools:targetApi="lollipop" />
-
+                    android:text="@string/sign_up"/>
 
             </LinearLayout>
         </ScrollView>

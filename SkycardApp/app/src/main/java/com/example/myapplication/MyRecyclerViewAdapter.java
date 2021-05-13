@@ -51,7 +51,6 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyHolder> {
 
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.list_my_cards, null);
         return new MyHolder(view);
-
     }
 
     @Override

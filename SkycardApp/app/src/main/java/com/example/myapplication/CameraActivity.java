@@ -98,6 +98,7 @@ public class CameraActivity extends AppCompatActivity implements SurfaceHolder.C
 //            alertCameraDialog();
         }
     }
+
     private boolean openCamera(int id) {
         boolean result = false;
         cameraId = id;
@@ -220,8 +221,6 @@ public class CameraActivity extends AppCompatActivity implements SurfaceHolder.C
 
             @Override
             public void onPictureTaken(byte[] data, Camera camera) {
-//                RelativeLayout boader_dotted = findViewById(R.id.boader_dotted);
-//                boader_dotted.getWidth();
                 AppProgressDialog.hideProgressDialog();
                 try {
                     // convert byte array into bitmap
@@ -230,20 +229,9 @@ public class CameraActivity extends AppCompatActivity implements SurfaceHolder.C
                     loadedImage = BitmapFactory.decodeByteArray(data, 0,
                             data.length);
 
-//                    float scale = 1300/1000F;
-//                    int left = (int) scale*(loadedImage.getWidth()-2464)/2;
-//                    int top = (int) scale*(loadedImage.getHeight()-1000)/2;
-//                    int width = (int) scale*1;
-//                    int height = (int) scale*1;
-//                    Log.d("width","fdfdf"+loadedImage.getWidth());
-//                    Log.d("height","fdfdf"+loadedImage.getHeight());
-
                     // rotate Image
                     Matrix rotateMatrix = new Matrix();
                     rotateMatrix.postRotate(rotation);
-
-//                    rotatedBitmap= Bitmap.createBitmap(loadedImage, left, top, width, height,
-//                            rotateMatrix, false);
                     rotatedBitmap = Bitmap.createBitmap(loadedImage, 0, 0,
                             loadedImage.getWidth(), loadedImage.getHeight(),
                             rotateMatrix, false);
@@ -308,19 +296,8 @@ public class CameraActivity extends AppCompatActivity implements SurfaceHolder.C
                     camera = null;
                 }
 
-
-//                encodedImage = encodeImage(imageFile);
-//                Log.d("encodedetails","ddfdfd"+encodedImage);
-//                resizeBase64Image(encodedImage);
-//                resizedImage=resizeBase64Image(encodedImage);
-//                Bitmap bm = BitmapFactory.decodeFile(imageFile.getPath());
-//                ByteArrayOutputStream baos = new ByteArrayOutputStream();
-//                bm.compress(Bitmap.CompressFormat.JPEG,100,baos);
-//                byte[] b = baos.toByteArray();
-
                 encodedImage = encodeImage(imageFile);
                 resizedImage = resizeBase64Image(encodedImage);
-
             }
         });
 
@@ -362,19 +339,6 @@ public class CameraActivity extends AppCompatActivity implements SurfaceHolder.C
         return encodedImage;
 
     }
-
-//    private void alertCameraDialog() {
-//        AlertDialog.Builder dialog = createAlert(CameraActivity.this,
-//                "Camera info", "error to open camera");
-//        dialog.setNegativeButton("OK", new DialogInterface.OnClickListener() {
-//            @Override
-//            public void onClick(DialogInterface dialog, int which) {
-//                dialog.cancel();
-//            }
-//        });
-//
-//        dialog.show();
-//    }
 
     private AlertDialog.Builder createAlert(Context context, String title, String message) {
 

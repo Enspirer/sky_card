@@ -49,9 +49,7 @@ public class SplashActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        getSupportActionBar().hide();
         setContentView(R.layout.activity_splash);
-
 
         final Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
@@ -96,7 +94,6 @@ public class SplashActivity extends AppCompatActivity {
                                             REQUEST_PERMISSION);
 
                                 } else {
-                                    // Pre-Marshmallow
                                 }
 
                             }
@@ -105,19 +102,19 @@ public class SplashActivity extends AppCompatActivity {
             }
 
             if (Build.VERSION.SDK_INT >= 23) {
-                // Marshmallow+
+
                 requestPermissions(permissionsList.toArray(new String[permissionsList.size()]),
                         REQUEST_PERMISSION);
 
             } else {
-                // Pre-Marshmallow
+
             }
 
             return;
         } else {
 
             startApp();
-       }
+        }
 
     }
 
@@ -125,27 +122,20 @@ public class SplashActivity extends AppCompatActivity {
 
         Boolean cond;
         if (Build.VERSION.SDK_INT >= 23) {
-            // Marshmallow+
+
             if (checkSelfPermission(permission) != PackageManager.PERMISSION_GRANTED) {
                 permissionsList.add(permission);
-                // Check for Rationale Option
                 if (!shouldShowRequestPermissionRationale(permission))
-                    //  return false;
 
                     cond = false;
             }
-            //  return true;
-
             cond = true;
 
 
         } else {
-            // Pre-Marshmallow
             cond = true;
         }
-
         return cond;
-
     }
 
     private void showMessageOKCancel(String message, DialogInterface.OnClickListener okListener) {
@@ -160,29 +150,25 @@ public class SplashActivity extends AppCompatActivity {
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
 
-        //Checking the request code of our request
         if (requestCode == 23) {
 
-            //If permission is granted
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 
-                //Displaying a toast
                 Toast.makeText(this, "Permission granted", Toast.LENGTH_LONG).show();
             } else {
-                //Displaying another toast if permission is not granted
+
                 Toast.makeText(this, "Permission Needed To Run The App", Toast.LENGTH_LONG).show();
             }
         }
         if (requestCode == REQUEST_PERMISSION) {
             Map<String, Integer> perms = new HashMap<String, Integer>();
-            // Initial
+
             perms.put(Manifest.permission.READ_EXTERNAL_STORAGE, PackageManager.PERMISSION_GRANTED);
             perms.put(Manifest.permission.WRITE_EXTERNAL_STORAGE, PackageManager.PERMISSION_GRANTED);
             perms.put(Manifest.permission.CAMERA, PackageManager.PERMISSION_GRANTED);
-            //Toast.makeText(SplashScreen.this, " Permissions are jddddd", Toast.LENGTH_SHORT).show();
-            // Fill with results
             for (int i = 0; i < permissions.length; i++)
                 perms.put(permissions[i], grantResults[i]);
+
             // Check for ACCESS_FINE_LOCATION
             if (perms.get(Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED
                     && perms.get(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED &&
@@ -208,7 +194,6 @@ public class SplashActivity extends AppCompatActivity {
                     }
                 }, 2000);
             }
-
         }
     }
 
@@ -224,7 +209,6 @@ public class SplashActivity extends AppCompatActivity {
         } else {
             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
             startActivity(intent);
-//            Toast.makeText(getApplicationContext(), "token accessed", Toast.LENGTH_SHORT).show();
             finish();
         }
 

@@ -39,6 +39,8 @@ import java.sql.Time;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.example.myapplication.MainActivity.BASE_URL;
+
 public class AddCardActivity extends AppCompatActivity {
 
     ImageView iViewAddCard, ivCloseCard, ivbackCard;
@@ -134,7 +136,7 @@ public class AddCardActivity extends AppCompatActivity {
     private void sendCard() {
         AppProgressDialog.showProgressDialog(this, "Scanning..", false);
 
-        String url = "http://thechaptersrilanka.com/sky_card_backend/public/api/auth/upload_card";
+        String url = BASE_URL+"api/auth/upload_card";
         JSONObject obj = new JSONObject();
 
         try {
@@ -267,7 +269,7 @@ public class AddCardActivity extends AppCompatActivity {
         card_type = 1;
 
         AppProgressDialog.showProgressDialog(this, "Saving..", false);
-        String url = "http://thechaptersrilanka.com/sky_card_backend/public/api/auth/save_cards";
+        String url = BASE_URL+"api/auth/save_cards";
         JSONObject obj = new JSONObject();
 
         try {

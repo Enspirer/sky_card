@@ -16,12 +16,12 @@ public class PageNotFoundActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_page_not_found);
 
-        buttonBackHome =findViewById(R.id.buttonGoBackHome);
+        buttonBackHome = findViewById(R.id.buttonGoBackHome);
 
         buttonBackHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(intent);
             }
         });

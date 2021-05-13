@@ -27,6 +27,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.example.myapplication.MainActivity.BASE_URL;
 import static com.example.myapplication.MyCardsActivity.shareUrl;
 
 public class ViewCardActivity extends AppCompatActivity {
@@ -39,7 +40,7 @@ public class ViewCardActivity extends AppCompatActivity {
         setContentView(R.layout.activity_view_card);
 
         wvCard = findViewById(R.id.wvCard);
-        wvCard.loadUrl("http://thechaptersrilanka.com/sky_card_backend/public/c/+"+shareUrl );
+        wvCard.loadUrl(BASE_URL+"c/+"+shareUrl );
 
     }
 }

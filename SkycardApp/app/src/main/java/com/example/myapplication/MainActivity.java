@@ -10,6 +10,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -55,7 +56,7 @@ import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOption
 
 public class MainActivity extends AppCompatActivity {
 
-    public static String BASE_URL = "";
+    public static String BASE_URL = "http://thechaptersrilanka.com/sky_card_backend/public/";
 
     private BottomNavigationView bottomNavigationView;
     private NavigationView topNavigationView;
@@ -66,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private TextView tvFullName;
     private TextView tvEmail;
+    private TextView tvDaily;
     private View navHeader;
 
     @Override
@@ -80,6 +82,7 @@ public class MainActivity extends AppCompatActivity {
         profilePic = navHeader.findViewById(R.id.ivProfilePic);
         tvFullName = navHeader.findViewById(R.id.tvProfileName);
         tvEmail = navHeader.findViewById(R.id.tvMemberEmail);
+        tvDaily = findViewById(R.id.tvskyNews);
 
         toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle("");
@@ -263,7 +266,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
     }
 
     @Override
@@ -308,7 +310,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void requestprofiledetails() {
 
-        String url = "http://thechaptersrilanka.com/sky_card_backend/public/api/auth/userDetails";
+        String url = BASE_URL + "api/auth/userDetails";
         JSONObject obj = new JSONObject();
 
         JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.POST,
@@ -317,25 +319,22 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onResponse(JSONObject response) {
                 AppProgressDialog.hideProgressDialog();
-//                Log.d("ddddddd", "ffffffffffffffffffffff");
-//                Log.d("ddddddd", "ccccc " + response);
-
                 try {
                     if (!response.isNull("profile_picture")) {
                         String imageUrl = response.getString("profile_picture");
                         Glide.with(MainActivity.this)
                                 .load(imageUrl)
                                 .listener(new RequestListener<Drawable>() {
-                            @Override
-                            public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
-                                return false;
-                            }
+                                    @Override
+                                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                                        return false;
+                                    }
 
-                            @Override
-                            public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
-                                return false;
-                            }
-                        }).transition(withCrossFade())
+                                    @Override
+                                    public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                                        return false;
+                                    }
+                                }).transition(withCrossFade())
                                 .apply(new RequestOptions()
                                         .transform(new RoundedCorners(100))
                                         .error(R.drawable.avatar)
@@ -367,14 +366,11 @@ public class MainActivity extends AppCompatActivity {
             public void onErrorResponse(VolleyError error) {
                 Log.d("resposneerror ", "error ");
                 error.printStackTrace();
-//                Toast.makeText(getApplicationContext(),
-//                        error.getMessage(), Toast.LENGTH_SHORT).show();
             }
 
         }) {
             @Override
             protected Response<JSONObject> parseNetworkResponse(NetworkResponse response) {
-                Log.d("dddddddddddddddd", "error 2 " + response.statusCode);
                 if (response.statusCode != 200) {
                     return Response.error(new ParseError(response));
                 } else {
@@ -382,7 +378,6 @@ public class MainActivity extends AppCompatActivity {
                         if (response.data.length == 0) {
                             byte[] responseData = "{}".getBytes("UTF8");
                             response = new NetworkResponse(response.statusCode, responseData, response.headers, response.notModified);
-                            Log.d("ddddddddddddddddd", "cccc " + responseData.toString());
                         }
                     } catch (UnsupportedEncodingException e) {
                         e.printStackTrace();

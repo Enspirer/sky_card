@@ -17,12 +17,12 @@ public class ComingSoonActivity extends AppCompatActivity {
 //        getSupportActionBar().hide();
         setContentView(R.layout.activity_coming_soon);
 
-        buttonBackHome =findViewById(R.id.buttonGoBackHome);
+        buttonBackHome = findViewById(R.id.buttonGoBackHome);
 
         buttonBackHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(intent);
             }
         });

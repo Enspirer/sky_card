@@ -44,6 +44,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static com.example.myapplication.MainActivity.BASE_URL;
+
 public class MyCardsActivity extends AppCompatActivity {
 
     RecyclerView recyclerView;
@@ -90,13 +92,12 @@ public class MyCardsActivity extends AppCompatActivity {
                 return false;
             }
         });
-
     }
 
     private void myCards() {
 
         AppProgressDialog.showProgressDialog(this, "Loading your Cards...", false);
-        String url = "http://thechaptersrilanka.com/sky_card_backend/public/api/auth/my_cards";
+        String url = BASE_URL + "api/auth/my_cards";
         RequestQueue queue = Volley.newRequestQueue(this);
 
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.POST, url, null,
@@ -113,22 +114,20 @@ public class MyCardsActivity extends AppCompatActivity {
 
                                 List<String> phone_number = new ArrayList<>();
 
+                                model.setCoverImage(cardObject.getString("cover_image"));
+                                model.setProfilePicture(cardObject.getString("avatar_image"));
+
                                 String phoneNumber = cardObject.getString("phone_number");
                                 JSONObject jsonObject = new JSONObject(phoneNumber);
-                                Log.d("ssss","aaaa "+jsonObject);
                                 model.setPhoneNumber1(jsonObject.getString("phone_number1"));
                                 model.setPhoneNumber2(jsonObject.getString("phone_number2"));
-//                                Log.d("ssss","ssss"+jsonObject.getString("phone_number1"));
-//                                Log.d("ssss","ssss"+jsonObject.getString("phone_number2"));
-
                                 model.setName(cardObject.getString("name"));
                                 model.setTitle(cardObject.getString("position"));
                                 model.setEmail(cardObject.getString("email"));
                                 model.setWebsite(cardObject.getString("website"));
                                 model.setAddress(cardObject.getString("address"));
                                 model.setViewCardURL(cardObject.getString("slug"));
-                                model.setCoverImage(cardObject.getString("cover_image"));
-                                model.setProfilePicture(cardObject.getString("avatar_image"));
+
                                 shareUrl = model.setViewCardURL(cardObject.getString("slug"));
                                 ImageView iv = new ImageView(getApplicationContext());
                                 models.add(model);
