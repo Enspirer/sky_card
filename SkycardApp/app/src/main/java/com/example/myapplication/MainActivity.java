@@ -22,6 +22,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkResponse;
@@ -40,7 +41,10 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.Target;
+import com.example.myapplication.Adapter.skyDailyAdapter;
 import com.example.myapplication.helper.AppProgressDialog;
+import com.example.myapplication.models.Model;
+import com.example.myapplication.models.skyDailyModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 
@@ -50,6 +54,7 @@ import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade;
@@ -69,6 +74,10 @@ public class MainActivity extends AppCompatActivity {
     private TextView tvEmail;
     private TextView tvDaily;
     private View navHeader;
+
+    skyDailyAdapter skyDailyAdapter;
+    skyDailyAdapter adapter;
+    List<skyDailyModel> models;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

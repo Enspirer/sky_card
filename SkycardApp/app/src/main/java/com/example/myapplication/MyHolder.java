@@ -29,7 +29,5 @@ public class MyHolder extends RecyclerView.ViewHolder {
         this.ivProfilePic = itemView.findViewById(R.id.myCardProfilePic);
         this.tvAddress = itemView.findViewById(R.id.myCardAddress);
         this.buttonViewCard = itemView.findViewById(R.id.buttonViewCard);
-
-
     }
 }

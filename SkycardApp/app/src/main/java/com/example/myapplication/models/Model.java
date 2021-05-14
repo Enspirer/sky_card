@@ -51,7 +51,6 @@ public class Model {
 
     public String setViewCardURL(String viewCardURL) {
         this.viewCardURL = viewCardURL;
-        Log.d("uuuuu", "uuuuu " + viewCardURL);
         return viewCardURL;
     }
 
@@ -99,27 +98,4 @@ public class Model {
         this.website = website;
     }
 
-//    public JSONArray getContactNumber() {
-//        return contactNumber;
-//    }
-//
-//    public void setContactNumber(JSONArray contactNumber) {
-//        this.contactNumber = contactNumber;
-//    }
-
-    //    public int getTheme() {
-//        return theme;
-//    }
-//
-//    public void setTheme(Integer theme) {
-//        this.theme = theme;
-//    }
-//
-//    public int getProfilePic() {
-//        return Integer.parseInt(profilePic);
-//    }
-
-//    public void setProfilePic(Integer profilePic) {
-//        this.profilePic =profilePic;
-//    }
 }

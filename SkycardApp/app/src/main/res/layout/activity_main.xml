@@ -222,7 +222,7 @@
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_gravity="center"
-                                        android:text="Sky Daily"
+                                        android:text="Sky Promo"
                                         android:textAlignment="center" />
                                 </LinearLayout>
                             </androidx.cardview.widget.CardView>
@@ -257,7 +257,7 @@
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_gravity="center"
-                                        android:text="Sky Network"
+                                        android:text="Sky Connect"
                                         android:textAlignment="center" />
                                 </LinearLayout>
                             </androidx.cardview.widget.CardView>
@@ -328,7 +328,7 @@
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_gravity="center"
-                                        android:text="Sky VIP"
+                                        android:text="Sky Club"
                                         android:textAlignment="center" />
 
                                 </LinearLayout>
@@ -413,156 +413,15 @@
                             android:layout_marginStart="20dp"
                             android:text="@string/sky_news" />
 
-                        <com.google.android.material.card.MaterialCardView
-                            android:id="@+id/card1"
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/rvSkyDaily"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="5dp">
+                            android:layout_height="wrap_content">
+                        </androidx.recyclerview.widget.RecyclerView>
 
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:orientation="vertical">
-
-                                <!-- Media -->
-                                <ImageView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="194dp"
-                                    android:contentDescription="discription"
-                                    android:scaleType="centerCrop"
-                                    app:srcCompat="@drawable/googleg_disabled_color_18" />
-
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:orientation="vertical"
-                                    android:padding="16dp">
-
-                                    <!-- Title, secondary and supporting text -->
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:text="Enspirer"
-                                        android:textAppearance="?attr/textAppearanceHeadline6" />
-
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginTop="8dp"
-                                        android:text="We are Enspirer International"
-                                        android:textAppearance="?attr/textAppearanceBody2"
-                                        android:textColor="?android:attr/textColorSecondary" />
-
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginTop="16dp"
-                                        android:text="We are hiring....."
-                                        android:textAppearance="?attr/textAppearanceBody2"
-                                        android:textColor="?android:attr/textColorSecondary" />
-                                </LinearLayout>
-                            </LinearLayout>
-                        </com.google.android.material.card.MaterialCardView>
-                        <com.google.android.material.card.MaterialCardView
-                            android:id="@+id/card2"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="5dp">
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:orientation="vertical">
-
-                                <!-- Media -->
-                                <ImageView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="194dp"
-                                    android:contentDescription="discription"
-                                    android:scaleType="centerCrop"
-                                    app:srcCompat="@drawable/googleg_disabled_color_18" />
-
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:orientation="vertical"
-                                    android:padding="16dp">
-
-                                    <!-- Title, secondary and supporting text -->
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:text="Enspirer"
-                                        android:textAppearance="?attr/textAppearanceHeadline6" />
-
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginTop="8dp"
-                                        android:text="We are Enspirer International"
-                                        android:textAppearance="?attr/textAppearanceBody2"
-                                        android:textColor="?android:attr/textColorSecondary" />
-
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginTop="16dp"
-                                        android:text="We are hiring....."
-                                        android:textAppearance="?attr/textAppearanceBody2"
-                                        android:textColor="?android:attr/textColorSecondary" />
-                                </LinearLayout>
-                            </LinearLayout>
-                        </com.google.android.material.card.MaterialCardView>
-                        <com.google.android.material.card.MaterialCardView
-                            android:id="@+id/card3"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="5dp">
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:orientation="vertical">
-
-                                <!-- Media -->
-                                <ImageView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="194dp"
-                                    android:contentDescription="discription"
-                                    android:scaleType="centerCrop"
-                                    app:srcCompat="@drawable/googleg_disabled_color_18" />
-
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:orientation="vertical"
-                                    android:padding="16dp">
-
-                                    <!-- Title, secondary and supporting text -->
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:text="Enspirer"
-                                        android:textAppearance="?attr/textAppearanceHeadline6" />
-
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginTop="8dp"
-                                        android:text="We are Enspirer International"
-                                        android:textAppearance="?attr/textAppearanceBody2"
-                                        android:textColor="?android:attr/textColorSecondary" />
-
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginTop="16dp"
-                                        android:text="We are hiring....."
-                                        android:textAppearance="?attr/textAppearanceBody2"
-                                        android:textColor="?android:attr/textColorSecondary" />
-                                </LinearLayout>
-                            </LinearLayout>
-                        </com.google.android.material.card.MaterialCardView>
                     </LinearLayout>
                 </ScrollView>
             </LinearLayout>
