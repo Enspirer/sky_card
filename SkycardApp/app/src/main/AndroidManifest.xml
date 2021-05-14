@@ -13,7 +13,7 @@
         android:protectionLevel="normal" />
 
     <application
-        android:allowBackup="true"
+        android:allowBackup="false"
         android:hardwareAccelerated="false"
         android:icon="@mipmap/sky_card_logo_foreground"
         android:label="SkyApp"

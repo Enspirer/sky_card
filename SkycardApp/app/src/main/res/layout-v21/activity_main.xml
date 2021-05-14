@@ -13,6 +13,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -24,8 +25,8 @@
                 android:layout_height="?attr/actionBarSize"
                 android:background="#FFFFFF"
                 android:elevation="4dp"
-                app:navigationIcon="@drawable/ic_baseline_menu_24"
-                android:theme="@style/AppTheme.NoActionBar"/>
+                android:theme="@style/AppTheme.NoActionBar"
+                app:navigationIcon="@drawable/ic_baseline_menu_24" />
         </LinearLayout>
 
         <LinearLayout
@@ -52,9 +53,9 @@
                 <ScrollView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:scrollbars="none"
+                    android:overScrollMode="always"
                     android:scrollIndicators="none"
-                    android:overScrollMode="always">
+                    android:scrollbars="none">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -131,8 +132,8 @@
                                 android:layout_rowWeight="1"
                                 android:layout_column="1"
                                 android:layout_columnWeight="1"
-                                app:cardUseCompatPadding="true"
-                                app:cardBackgroundColor="#F9F9F9">
+                                app:cardBackgroundColor="#F9F9F9"
+                                app:cardUseCompatPadding="true">
 
                                 <LinearLayout
                                     android:layout_width="wrap_content"
@@ -167,8 +168,8 @@
                                 android:layout_rowWeight="1"
                                 android:layout_column="2"
                                 android:layout_columnWeight="1"
-                                app:cardUseCompatPadding="true"
-                                app:cardBackgroundColor="#F9F9F9">
+                                app:cardBackgroundColor="#F9F9F9"
+                                app:cardUseCompatPadding="true">
 
                                 <LinearLayout
                                     android:layout_width="wrap_content"
@@ -201,8 +202,8 @@
                                 android:layout_rowWeight="1"
                                 android:layout_column="0"
                                 android:layout_columnWeight="1"
-                                app:cardUseCompatPadding="true"
-                                app:cardBackgroundColor="#F9F9F9">
+                                app:cardBackgroundColor="#F9F9F9"
+                                app:cardUseCompatPadding="true">
 
                                 <LinearLayout
                                     android:layout_width="wrap_content"
@@ -235,8 +236,8 @@
                                 android:layout_rowWeight="1"
                                 android:layout_column="1"
                                 android:layout_columnWeight="1"
-                                app:cardUseCompatPadding="true"
-                                app:cardBackgroundColor="#F9F9F9">
+                                app:cardBackgroundColor="#F9F9F9"
+                                app:cardUseCompatPadding="true">
 
                                 <LinearLayout
                                     android:layout_width="wrap_content"
@@ -270,8 +271,8 @@
                                 android:layout_rowWeight="1"
                                 android:layout_column="2"
                                 android:layout_columnWeight="1"
-                                app:cardUseCompatPadding="true"
-                                app:cardBackgroundColor="#F9F9F9">
+                                app:cardBackgroundColor="#F9F9F9"
+                                app:cardUseCompatPadding="true">
 
                                 <LinearLayout
                                     android:layout_width="wrap_content"
@@ -305,8 +306,8 @@
                                 android:layout_rowWeight="1"
                                 android:layout_column="0"
                                 android:layout_columnWeight="1"
-                                app:cardUseCompatPadding="true"
-                                app:cardBackgroundColor="#F9F9F9">
+                                app:cardBackgroundColor="#F9F9F9"
+                                app:cardUseCompatPadding="true">
 
                                 <LinearLayout
                                     android:layout_width="wrap_content"
@@ -342,8 +343,8 @@
                                 android:layout_rowWeight="1"
                                 android:layout_column="1"
                                 android:layout_columnWeight="1"
-                                app:cardUseCompatPadding="true"
-                                app:cardBackgroundColor="#F9F9F9">
+                                app:cardBackgroundColor="#F9F9F9"
+                                app:cardUseCompatPadding="true">
 
                                 <LinearLayout
                                     android:layout_width="wrap_content"
@@ -377,8 +378,8 @@
                                 android:layout_rowWeight="1"
                                 android:layout_column="2"
                                 android:layout_columnWeight="1"
-                                app:cardUseCompatPadding="true"
-                                app:cardBackgroundColor="#F9F9F9">
+                                app:cardBackgroundColor="#F9F9F9"
+                                app:cardUseCompatPadding="true">
 
                                 <LinearLayout
                                     android:layout_width="wrap_content"
@@ -411,15 +412,61 @@
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/gridView"
                             android:layout_marginStart="20dp"
-                            android:text="@string/sky_news" />
+                            android:text="Sky Daily" />
+
+                        <com.google.android.material.card.MaterialCardView
+                            android:id="@+id/card"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="8dp">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical">
+
+                                <!-- Media -->
+                                <ImageView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="194dp"
+                                    android:scaleType="centerCrop"
+                                    android:src="@color/colorAccent"/>
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="vertical"
+                                    android:padding="16dp">
+
+                                    <!-- Title, secondary and supporting text -->
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="Buy 1 and Get 2 Free!"
+                                        android:textAppearance="?attr/textAppearanceHeadline6"
+                                        />
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="8dp"
+                                        android:text="Buy Large Classic Pizza and get Free Lava Cakes"
+                                        android:textAppearance="?attr/textAppearanceBody2"
+                                        android:textColor="?android:attr/textColorSecondary"
+                                        />
+
+                                </LinearLayout>
+
+                            </LinearLayout>
+
+                        </com.google.android.material.card.MaterialCardView>
 
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/rvSkyDaily"
-                            android:layout_marginTop="10dp"
-                            android:layout_marginLeft="10dp"
-                            android:layout_marginRight="10dp"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginRight="10dp">
 
                         </androidx.recyclerview.widget.RecyclerView>
 

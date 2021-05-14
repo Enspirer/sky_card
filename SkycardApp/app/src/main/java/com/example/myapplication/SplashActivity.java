@@ -43,6 +43,7 @@ import java.util.TimerTask;
 
 public class SplashActivity extends AppCompatActivity {
 
+    public static String BASE_URL = "http://thechaptersrilanka.com/sky_card_backend/public/";
 
     final private int REQUEST_PERMISSION = 100;
 

@@ -44,7 +44,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static com.example.myapplication.MainActivity.BASE_URL;
+import static com.example.myapplication.SplashActivity.BASE_URL;
 
 public class MyCardsActivity extends AppCompatActivity {
 
@@ -114,18 +114,37 @@ public class MyCardsActivity extends AppCompatActivity {
 
                                 List<String> phone_number = new ArrayList<>();
 
-                                model.setCoverImage(cardObject.getString("cover_image"));
-                                model.setProfilePicture(cardObject.getString("avatar_image"));
+                                if (!cardObject.isNull("cover_image")){
+                                    model.setCoverImage(cardObject.getString("cover_image"));
+                                }
 
-                                String phoneNumber = cardObject.getString("phone_number");
-                                JSONObject jsonObject = new JSONObject(phoneNumber);
-                                model.setPhoneNumber1(jsonObject.getString("phone_number1"));
-                                model.setPhoneNumber2(jsonObject.getString("phone_number2"));
-                                model.setName(cardObject.getString("name"));
-                                model.setTitle(cardObject.getString("position"));
-                                model.setEmail(cardObject.getString("email"));
-                                model.setWebsite(cardObject.getString("website"));
-                                model.setAddress(cardObject.getString("address"));
+                                if (!cardObject.isNull("avatar_image")){
+                                    model.setProfilePicture(cardObject.getString("avatar_image"));
+                                }
+
+                                if (!cardObject.isNull("phone_number")){
+                                    String phoneNumber = cardObject.getString("phone_number");
+                                    JSONObject jsonObject = new JSONObject(phoneNumber);
+                                    model.setPhoneNumber1(jsonObject.getString("phone_number1"));
+                                    model.setPhoneNumber2(jsonObject.getString("phone_number2"));
+                                }
+
+                                if (!cardObject.isNull("name")){
+                                    model.setName(cardObject.getString("name"));
+                                }
+                                if (!cardObject.isNull("position")){
+                                    model.setTitle(cardObject.getString("position"));
+                                }
+                                if (!cardObject.isNull("email")){
+                                    model.setEmail(cardObject.getString("email"));
+                                }
+                                if (!cardObject.isNull("email")){
+                                    model.setWebsite(cardObject.getString("website"));
+                                }
+                                if (!cardObject.isNull("address")){
+                                    model.setAddress(cardObject.getString("address"));
+                                }
+
                                 model.setViewCardURL(cardObject.getString("slug"));
 
                                 shareUrl = model.setViewCardURL(cardObject.getString("slug"));
@@ -149,7 +168,6 @@ public class MyCardsActivity extends AppCompatActivity {
             public void onErrorResponse(VolleyError error) {
                 Intent intent = new Intent(getApplicationContext(), PageNotFoundActivity.class);
                 startActivity(intent);
-
             }
 
         }) {

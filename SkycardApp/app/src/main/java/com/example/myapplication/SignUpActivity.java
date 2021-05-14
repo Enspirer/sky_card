@@ -21,7 +21,7 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import static com.example.myapplication.MainActivity.BASE_URL;
+import static com.example.myapplication.SplashActivity.BASE_URL;
 
 public class SignUpActivity extends AppCompatActivity {
 

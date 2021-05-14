@@ -22,6 +22,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.AuthFailureError;
@@ -31,6 +32,7 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
@@ -53,15 +55,15 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade;
+import static com.example.myapplication.SplashActivity.BASE_URL;
 
 public class MainActivity extends AppCompatActivity {
-
-    public static String BASE_URL = "http://thechaptersrilanka.com/sky_card_backend/public/";
 
     private BottomNavigationView bottomNavigationView;
     private NavigationView topNavigationView;
@@ -75,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView tvDaily;
     private View navHeader;
 
-    skyDailyAdapter skyDailyAdapter;
+    RecyclerView recyclerView;
     skyDailyAdapter adapter;
     List<skyDailyModel> models;
 
@@ -85,6 +87,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         bottomNavigationView = findViewById(R.id.botom_navigation);
+
+        recyclerView = findViewById(R.id.rvSkyDaily);
+        models = new ArrayList<>();
+//        skyDaily();
 
         topNavigationView = findViewById(R.id.nav_view);
         navHeader = topNavigationView.getHeaderView(0);
@@ -200,7 +206,6 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), CameraActivity.class);
                 startActivity(intent);
-
             }
         });
         cvMyCards.setOnClickListener(new View.OnClickListener() {
@@ -327,7 +332,6 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onResponse(JSONObject response) {
-                AppProgressDialog.hideProgressDialog();
                 try {
                     if (!response.isNull("profile_picture")) {
                         String imageUrl = response.getString("profile_picture");
@@ -367,7 +371,6 @@ public class MainActivity extends AppCompatActivity {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
             }
 
         }, new Response.ErrorListener() {
@@ -409,4 +412,60 @@ public class MainActivity extends AppCompatActivity {
         RequestQueue queue = Volley.newRequestQueue(this);
         queue.add(jsonObjReq);
     }
+
+    private void skyDaily() {
+
+        String url = BASE_URL + "";
+        RequestQueue queue = Volley.newRequestQueue(this);
+
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.POST, url, null,
+                new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+
+                        for (int i = 0; i < response.length(); i++) {
+
+                            try {
+                                JSONObject skyDailyObject = response.getJSONObject(i);
+                                skyDailyModel model = new skyDailyModel();
+
+                                model.setOfferTitle(skyDailyObject.getString("offer_title"));
+                                model.setOfferDisc(skyDailyObject.getString("offer_discription"));
+                                model.setOfferImg(skyDailyObject.getString("offer_img"));
+
+                                ImageView iv = new ImageView(getApplicationContext());
+                                models.add(model);
+
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+
+                        recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+                        adapter = new skyDailyAdapter(MainActivity.this, (ArrayList<skyDailyModel>) models);
+                        recyclerView.setAdapter(adapter);
+                    }
+
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Intent intent = new Intent(getApplicationContext(), PageNotFoundActivity.class);
+                startActivity(intent);
+
+            }
+
+        }) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+
+                SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
+                String token = pref.getString("token", "");
+                params.put("Authorization", "Bearer " + token);
+                return params;
+            }
+        };
+        queue.add(jsonArrayRequest);
+    }
+
 }

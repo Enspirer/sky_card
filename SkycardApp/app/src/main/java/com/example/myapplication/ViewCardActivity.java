@@ -27,8 +27,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.example.myapplication.MainActivity.BASE_URL;
 import static com.example.myapplication.MyCardsActivity.shareUrl;
+import static com.example.myapplication.SplashActivity.BASE_URL;
 
 public class ViewCardActivity extends AppCompatActivity {
 

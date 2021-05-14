@@ -39,7 +39,8 @@ import java.sql.Time;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.example.myapplication.MainActivity.BASE_URL;
+import static com.example.myapplication.SplashActivity.BASE_URL;
+
 
 public class AddCardActivity extends AppCompatActivity {
 

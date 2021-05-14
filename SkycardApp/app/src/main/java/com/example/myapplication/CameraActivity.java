@@ -58,7 +58,6 @@ public class CameraActivity extends AppCompatActivity implements SurfaceHolder.C
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        getSupportActionBar().hide();
         setContentView(R.layout.activity_camera);
 
         cameraId = Camera.CameraInfo.CAMERA_FACING_BACK;
@@ -95,7 +94,6 @@ public class CameraActivity extends AppCompatActivity implements SurfaceHolder.C
     @Override
     public void surfaceCreated(SurfaceHolder holder) {
         if (!openCamera(Camera.CameraInfo.CAMERA_FACING_BACK)) {
-//            alertCameraDialog();
         }
     }
 
@@ -156,7 +154,6 @@ public class CameraActivity extends AppCompatActivity implements SurfaceHolder.C
                 break;
         }
 
-        // Back-facing
         rotation = (info.orientation - degree + 360) % 360;
         c.setDisplayOrientation(rotation);
 
@@ -340,21 +337,21 @@ public class CameraActivity extends AppCompatActivity implements SurfaceHolder.C
 
     }
 
-    private AlertDialog.Builder createAlert(Context context, String title, String message) {
-
-        AlertDialog.Builder dialog = new AlertDialog.Builder(
-                new ContextThemeWrapper(context,
-                        android.R.style.Theme_Holo_Light_Dialog));
-
-        dialog.setIcon(R.drawable.ic_launcher_background);
-        if (title != null)
-            dialog.setTitle(title);
-        else
-            dialog.setTitle("Information");
-        dialog.setMessage(message);
-        dialog.setCancelable(false);
-        return dialog;
-    }
+//    private AlertDialog.Builder createAlert(Context context, String title, String message) {
+//
+//        AlertDialog.Builder dialog = new AlertDialog.Builder(
+//                new ContextThemeWrapper(context,
+//                        android.R.style.Theme_Holo_Light_Dialog));
+//
+//        dialog.setIcon(R.drawable.ic_launcher_background);
+//        if (title != null)
+//            dialog.setTitle(title);
+//        else
+//            dialog.setTitle("Information");
+//        dialog.setMessage(message);
+//        dialog.setCancelable(false);
+//        return dialog;
+//    }
 
     @Override
     public void onPointerCaptureChanged(boolean hasCapture) {

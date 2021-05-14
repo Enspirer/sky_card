@@ -2,13 +2,16 @@ package com.example.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -27,29 +30,43 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.example.myapplication.MainActivity.BASE_URL;
+import static com.example.myapplication.SplashActivity.BASE_URL;
 
 public class LoginActivity extends AppCompatActivity {
 
 
     Button buttonLogin, buttonSignUp;
 
-    EditText etPass, ete_mail;
-    String userName, password;
+    private EditText etPassword, etUserName;
+    private String userName, password;
+    private CheckBox saveLoginCheckBox;
+    private SharedPreferences loginPreferences;
+    private SharedPreferences.Editor loginPrefEditor;
+    private Boolean saveLogin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        etPass = findViewById(R.id.etPassword);
-        ete_mail = findViewById(R.id.etEmail);
+        etPassword = findViewById(R.id.etPassword);
+        etUserName = findViewById(R.id.etEmail);
 
         buttonSignUp = findViewById(R.id.btnSignUp);
         buttonLogin = findViewById(R.id.btnLogin);
 
-        userName = ete_mail.getText().toString();
-        password = etPass.getText().toString();
+        userName = etUserName.getText().toString();
+        password = etPassword.getText().toString();
+
+        saveLoginCheckBox = findViewById(R.id.checkBoxRemeber);
+        loginPreferences = getSharedPreferences("loginPrefs",MODE_PRIVATE);
+        loginPrefEditor = loginPreferences.edit();
+        saveLogin = loginPreferences.getBoolean("saveLogin",false);
+
+        if (saveLogin==true){
+            etUserName.setText(loginPreferences.getString("username",""));
+            etPassword.setText(loginPreferences.getString("password",""));
+        }
 
 
         buttonSignUp.setOnClickListener(new View.OnClickListener() {
@@ -63,12 +80,28 @@ public class LoginActivity extends AppCompatActivity {
         buttonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (v==buttonLogin){
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(etUserName.getWindowToken(),0);
+
+                    userName = etUserName.getText().toString();
+                    password = etPassword.getText().toString();
+
+                    if (saveLoginCheckBox.isChecked()){
+                        loginPrefEditor.putBoolean("saveLogin",true);
+                        loginPrefEditor.putString("username",userName);
+                        loginPrefEditor.putString("password",password);
+                        loginPrefEditor.commit();
+                    }else {
+                        loginPrefEditor.clear();
+                        loginPrefEditor.commit();
+                    }
+                }
                 requestLogin();
             }
         });
 
     }
-
     private void requestLogin() {
 
         AppProgressDialog.showProgressDialog(this, "Login...", true);
@@ -78,8 +111,8 @@ public class LoginActivity extends AppCompatActivity {
 
         try {
 
-            obj.put("password", etPass.getText().toString());
-            obj.put("email", ete_mail.getText().toString());
+            obj.put("password", etPassword.getText().toString());
+            obj.put("email", etUserName.getText().toString());
             obj.put("remember_me", 1);
 
         } catch (JSONException e) {
