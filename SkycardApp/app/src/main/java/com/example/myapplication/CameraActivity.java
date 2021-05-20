@@ -1,5 +1,7 @@
 package com.example.myapplication;
 
+import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.view.ContextThemeWrapper;
@@ -9,10 +11,16 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.hardware.Camera;
+import android.hardware.camera2.CameraAccessException;
+import android.hardware.camera2.CameraCharacteristics;
+import android.hardware.camera2.CameraManager;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -24,6 +32,7 @@ import android.view.SurfaceView;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
@@ -38,7 +47,9 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.spi.FileTypeDetector;
+import java.security.Policy;
 import java.sql.Timestamp;
+
 
 public class CameraActivity extends AppCompatActivity implements SurfaceHolder.Callback, View.OnClickListener {
 
@@ -50,10 +61,16 @@ public class CameraActivity extends AppCompatActivity implements SurfaceHolder.C
     private SurfaceHolder surfaceHolder;
     private Camera camera;
     private ImageView imageCapture;
+    private ImageView imageFlasher;
+    private ImageView imageUploader;
     private ImageView imageCloseCamera;
     private ImageView imageConfirm;
     private int cameraId;
     private int rotation;
+    private int flashOn = 0;
+    int x, y;
+    int SELECT_PICTURE = 200;
+    public static Bitmap thumbnail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +82,8 @@ public class CameraActivity extends AppCompatActivity implements SurfaceHolder.C
         imageConfirm = findViewById(R.id.iVConfirm);
         imageCloseCamera = findViewById(R.id.btnClose);
         imageCapture = findViewById(R.id.ivCaptureImage);
+        imageFlasher = findViewById(R.id.ivFlash);
+        imageUploader = findViewById(R.id.ivGallery);
 
         surfaceHolder = surfaceView.getHolder();
         surfaceHolder.addCallback(this);
@@ -80,6 +99,12 @@ public class CameraActivity extends AppCompatActivity implements SurfaceHolder.C
                 finish();
             }
         });
+        imageUploader.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectImage();
+            }
+        });
 
         imageConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -89,6 +114,56 @@ public class CameraActivity extends AppCompatActivity implements SurfaceHolder.C
                 finish();
             }
         });
+
+        imageFlasher.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.M)
+            @Override
+            public void onClick(View v) {
+
+                if (flashOn == 0) {
+                    Camera.Parameters p = camera.getParameters();
+                    p.setFlashMode(Camera.Parameters.FLASH_MODE_ON);
+                    camera.setParameters(p);
+                    flashOn++;
+                    x = flashOn;
+                    Toast.makeText(getApplicationContext(), "Flash on", Toast.LENGTH_SHORT).show();
+
+                } else if (flashOn == 1) {
+                    Camera.Parameters p = camera.getParameters();
+                    p.setFlashMode(Camera.Parameters.FLASH_MODE_OFF);
+                    camera.setParameters(p);
+                    flashOn = 0;
+                    y = flashOn;
+                    Toast.makeText(getApplicationContext(), "Flash off", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+    }
+
+    private void selectImage() {
+        Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        startActivityForResult(intent, 2);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK) {
+
+            if (requestCode == 2) {
+                Uri selectedImage = data.getData();
+                String[] filePath = {MediaStore.Images.Media.DATA};
+                Cursor c = getContentResolver().query(selectedImage, filePath, null, null, null);
+                c.moveToFirst();
+                int columnIndex = c.getColumnIndex(filePath[0]);
+                String picturePath = c.getString(columnIndex);
+                c.close();
+                thumbnail = (BitmapFactory.decodeFile(picturePath));
+                Intent intent = new Intent(getApplicationContext(),UploadCardActivity.class);
+                startActivity(intent);
+            }
+        }
     }
 
     @Override
@@ -211,10 +286,21 @@ public class CameraActivity extends AppCompatActivity implements SurfaceHolder.C
 
     private void takeImage() {
 
-        AppProgressDialog.showProgressDialog(this, "Capturing...", false);
+        //flash issue- when flashe on
+
+        Camera.Parameters p = camera.getParameters();
+
+        if (x == x) {
+            p.setFlashMode(Camera.Parameters.FLASH_MODE_ON);
+            camera.setParameters(p);
+        } else {
+            p.setFlashMode(Camera.Parameters.FLASH_MODE_OFF);
+            camera.setParameters(p);
+        }
+        if (!isFinishing())
+            AppProgressDialog.showProgressDialog(this, "Capturing...", false);
 
         camera.takePicture(null, null, new Camera.PictureCallback() {
-
 
             @Override
             public void onPictureTaken(byte[] data, Camera camera) {
@@ -334,29 +420,10 @@ public class CameraActivity extends AppCompatActivity implements SurfaceHolder.C
         encodedImage = Base64.encodeToString(b, Base64.DEFAULT);
         AppProgressDialog.hideProgressDialog();
         return encodedImage;
-
     }
-
-//    private AlertDialog.Builder createAlert(Context context, String title, String message) {
-//
-//        AlertDialog.Builder dialog = new AlertDialog.Builder(
-//                new ContextThemeWrapper(context,
-//                        android.R.style.Theme_Holo_Light_Dialog));
-//
-//        dialog.setIcon(R.drawable.ic_launcher_background);
-//        if (title != null)
-//            dialog.setTitle(title);
-//        else
-//            dialog.setTitle("Information");
-//        dialog.setMessage(message);
-//        dialog.setCancelable(false);
-//        return dialog;
-//    }
 
     @Override
     public void onPointerCaptureChanged(boolean hasCapture) {
-
     }
-
 
 }

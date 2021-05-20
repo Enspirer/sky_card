@@ -2,12 +2,14 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:background="@drawable/boader_my_card">
 
         <!-- Media -->
         <ImageView
@@ -15,6 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="150dp"
             android:scaleType="centerCrop"
+            android:padding="5dp"
             android:src="#FDD835" />
 
         <LinearLayout
@@ -31,8 +34,8 @@
 
                 <ImageView
                     android:id="@+id/myCardProfilePic"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="75dp"
+                    android:layout_height="75dp"
                     android:layout_marginStart="10dp"
                     android:src="@mipmap/ic_launcher_round" />
 
@@ -69,7 +72,7 @@
                 <LinearLayout
                     android:layout_width="150dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="50dp"
+                    android:layout_marginRight="30dp"
                     android:baselineAligned="true"
                     android:orientation="horizontal">
 
@@ -103,7 +106,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
+                    android:layout_marginStart="5dp"
                     android:baselineAligned="true"
                     android:orientation="horizontal">
 
@@ -132,7 +135,7 @@
                 <LinearLayout
                     android:layout_width="150dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="50dp"
+                    android:layout_marginRight="30dp"
                     android:baselineAligned="true"
                     android:orientation="horizontal">
 
@@ -152,7 +155,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
+                    android:layout_marginStart="5dp"
                     android:baselineAligned="true"
                     android:orientation="horizontal">
 

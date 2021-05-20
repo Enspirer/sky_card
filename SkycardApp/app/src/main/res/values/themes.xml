@@ -26,8 +26,11 @@
         <item name="fullscreenTextColor">@color/light_blue_A200</item>
     </style>
 
-
     <style name="Theme.MyApplication.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
-
     <style name="Theme.MyApplication.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="MyActionBarTheme">
+        <item name="actionBarPopupTheme">@color/light_blue_600</item>
+    </style>
+
 </resources>

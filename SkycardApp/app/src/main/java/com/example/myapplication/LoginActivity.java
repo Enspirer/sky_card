@@ -39,7 +39,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private EditText etPassword, etUserName;
     private String userName, password;
-    private CheckBox saveLoginCheckBox;
+    public static CheckBox saveLoginCheckBox;
     private SharedPreferences loginPreferences;
     private SharedPreferences.Editor loginPrefEditor;
     private Boolean saveLogin;
@@ -59,16 +59,16 @@ public class LoginActivity extends AppCompatActivity {
         password = etPassword.getText().toString();
 
         saveLoginCheckBox = findViewById(R.id.checkBoxRemeber);
-        loginPreferences = getSharedPreferences("loginPrefs",MODE_PRIVATE);
+        loginPreferences = getSharedPreferences("loginPrefs", MODE_PRIVATE);
         loginPrefEditor = loginPreferences.edit();
-        saveLogin = loginPreferences.getBoolean("saveLogin",false);
+        saveLogin = loginPreferences.getBoolean("saveLogin", false);
+        String prefUsername = loginPreferences.getString("username", "");
+        String prefPassword = loginPreferences.getString("password", "");
 
-        if (saveLogin==true){
-            etUserName.setText(loginPreferences.getString("username",""));
-            etPassword.setText(loginPreferences.getString("password",""));
+        if (saveLogin == true) {
+            etUserName.setText(prefUsername);
+            etPassword.setText(prefPassword);
         }
-
-
         buttonSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -80,19 +80,19 @@ public class LoginActivity extends AppCompatActivity {
         buttonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (v==buttonLogin){
+                if (v == buttonLogin) {
                     InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                    imm.hideSoftInputFromWindow(etUserName.getWindowToken(),0);
+                    imm.hideSoftInputFromWindow(etUserName.getWindowToken(), 0);
 
                     userName = etUserName.getText().toString();
                     password = etPassword.getText().toString();
 
-                    if (saveLoginCheckBox.isChecked()){
-                        loginPrefEditor.putBoolean("saveLogin",true);
-                        loginPrefEditor.putString("username",userName);
-                        loginPrefEditor.putString("password",password);
+                    if (saveLoginCheckBox.isChecked()) {
+                        loginPrefEditor.putBoolean("saveLogin", true);
+                        loginPrefEditor.putString("username", userName);
+                        loginPrefEditor.putString("password", password);
                         loginPrefEditor.commit();
-                    }else {
+                    } else {
                         loginPrefEditor.clear();
                         loginPrefEditor.commit();
                     }
@@ -101,7 +101,9 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+
     }
+
     private void requestLogin() {
 
         AppProgressDialog.showProgressDialog(this, "Login...", true);

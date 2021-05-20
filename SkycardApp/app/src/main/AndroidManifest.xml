@@ -12,6 +12,8 @@
         android:permissionGroup="android.permission-group.HARDWARE_CONTROLS"
         android:protectionLevel="normal" />
 
+    <uses-feature android:name="android.hardware.camera.autofocus" />
+
     <application
         android:allowBackup="false"
         android:hardwareAccelerated="false"
@@ -23,7 +25,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ViewCardActivity"></activity>
+        <activity android:name=".SkyConnectActivity"></activity>
+        <activity android:name=".SkyClubActivity" />
+        <activity android:name=".UploadCardActivity" />
+        <activity android:name=".ViewCardActivity" />
         <activity android:name=".PageNotFoundActivity" />
         <activity android:name=".ComingSoonActivity" />
         <activity android:name=".SettingsActivity" />

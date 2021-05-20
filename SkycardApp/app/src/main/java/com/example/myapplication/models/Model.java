@@ -54,6 +54,10 @@ public class Model {
         return viewCardURL;
     }
 
+    public String getViewCardURL() {
+        return viewCardURL;
+    }
+
     public Model() {
     }
 

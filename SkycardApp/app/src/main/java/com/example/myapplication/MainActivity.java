@@ -61,6 +61,7 @@ import java.util.List;
 import java.util.Map;
 
 import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade;
+import static com.example.myapplication.LoginActivity.saveLoginCheckBox;
 import static com.example.myapplication.SplashActivity.BASE_URL;
 
 public class MainActivity extends AppCompatActivity {
@@ -68,8 +69,8 @@ public class MainActivity extends AppCompatActivity {
     private BottomNavigationView bottomNavigationView;
     private NavigationView topNavigationView;
     private DrawerLayout drawer;
-    private CardView cvAddCard, cvCardHolder, cvMyCards, cvSkyDaily, cvSkyNetwork, cvShareCards,
-            cvSkyVip, cvSkySmiles, cvSkyChats;
+    private CardView cvAddCard, cvCardHolder, cvMyCards, cvSkyPromo, cvSkyDaily,
+            cvSkyConnect, cvShareCards, cvSkyClub, cvSkyChats;
     private ImageView profilePic;
     private Toolbar toolbar;
     private TextView tvFullName;
@@ -107,11 +108,11 @@ public class MainActivity extends AppCompatActivity {
         cvCardHolder = findViewById(R.id.cvCardHolder);
         cvMyCards = findViewById(R.id.cvMyCards);
         cvSkyDaily = findViewById(R.id.cvSkyDaily);
-        cvSkyNetwork = findViewById(R.id.cvSkyNetwork);
-        cvShareCards = findViewById(R.id.cvShareCards);
-        cvSkyVip = findViewById(R.id.cvSkyVip);
-        cvSkySmiles = findViewById(R.id.cvSkySmiles);
+        cvSkyPromo = findViewById(R.id.cvSkyPromo);
+        cvSkyConnect = findViewById(R.id.cvSkyConnect);
+        cvSkyClub = findViewById(R.id.cvSkyClub);
         cvSkyChats = findViewById(R.id.cvSkyChat);
+        cvShareCards = findViewById(R.id.cvShareCards);
 
         drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this,
@@ -121,6 +122,7 @@ public class MainActivity extends AppCompatActivity {
                 R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
+
 
         requestprofiledetails();
 
@@ -208,6 +210,14 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        cvCardHolder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), ComingSoonActivity.class);
+                startActivity(intent);
+            }
+        });
         cvMyCards.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -217,33 +227,29 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        cvCardHolder.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), ComingSoonActivity.class);
-                startActivity(intent);
-            }
-        });
-
-
         cvSkyDaily.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), ComingSoonActivity.class);
                 startActivity(intent);
-
             }
         });
 
-        cvCardHolder.setOnClickListener(new View.OnClickListener() {
+        cvSkyPromo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), ComingSoonActivity.class);
                 startActivity(intent);
-
             }
         });
 
+        cvSkyConnect.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), SkyConnectActivity.class);
+                startActivity(intent);
+            }
+        });
 
         cvShareCards.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -254,17 +260,16 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
-        cvSkyVip.setOnClickListener(new View.OnClickListener() {
+        cvSkyClub.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), ComingSoonActivity.class);
+                Intent intent = new Intent(getApplicationContext(), SkyClubActivity.class);
                 startActivity(intent);
 
             }
         });
 
-        cvSkySmiles.setOnClickListener(new View.OnClickListener() {
+        cvSkyDaily.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), ComingSoonActivity.class);
@@ -294,6 +299,7 @@ public class MainActivity extends AppCompatActivity {
     public void clearPref() {
         SharedPreferences sharedPref = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
         sharedPref.edit().remove("token").apply();
+        saveLoginCheckBox.setChecked(false);
 
         Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
         startActivity(intent);

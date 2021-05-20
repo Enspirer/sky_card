@@ -35,6 +35,7 @@ import java.util.List;
 
 import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade;
 import static com.example.myapplication.MyCardsActivity.shareUrl;
+import static com.example.myapplication.SplashActivity.BASE_URL;
 
 public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyHolder> {
 
@@ -91,13 +92,29 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyHolder> {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, ViewCardActivity.class);
+                String cardUrl = models.get(position).getViewCardURL();
+                intent.putExtra("web_url", cardUrl);
                 context.startActivity(intent);
+            }
+        });
+
+        holder.buttonShareCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent SharingIntent = new Intent(Intent.ACTION_SEND);
+                SharingIntent.setType("text/plain");
+                SharingIntent.putExtra(Intent.EXTRA_SUBJECT, "Hi! I would like to share my Sky " +
+                        "Card with you.");
+                SharingIntent.putExtra(Intent.EXTRA_TEXT, BASE_URL + "c/" + models.get(position).getViewCardURL());
+                context.startActivity(Intent.createChooser(SharingIntent, "Share your card"));
             }
         });
     }
 
     @Override
     public int getItemCount() {
+
         return models.size();
     }
 }

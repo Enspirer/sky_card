@@ -2,6 +2,7 @@ package com.example.myapplication;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -9,12 +10,17 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkResponse;
@@ -63,8 +69,9 @@ public class MyCardsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_my_cards);
 
         bottomNavigationView = findViewById(R.id.botom_navigation);
-
         recyclerView = findViewById(R.id.rvMyCards);
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL);
+        recyclerView.addItemDecoration(dividerItemDecoration);
         models = new ArrayList<>();
         myCards();
 
@@ -94,7 +101,7 @@ public class MyCardsActivity extends AppCompatActivity {
         });
     }
 
-    private void myCards() {
+    public void myCards() {
 
         AppProgressDialog.showProgressDialog(this, "Loading your Cards...", false);
         String url = BASE_URL + "api/auth/my_cards";
@@ -111,45 +118,49 @@ public class MyCardsActivity extends AppCompatActivity {
                             try {
                                 JSONObject cardObject = response.getJSONObject(i);
                                 Model model = new Model();
+//                                Log.d("ssss","ssss"+ response.getJSONObject(i));
 
                                 List<String> phone_number = new ArrayList<>();
 
-                                if (!cardObject.isNull("cover_image")){
+                                if (!cardObject.isNull("cover_image")) {
                                     model.setCoverImage(cardObject.getString("cover_image"));
+                                    Log.d("dddd", "ddddd" + cardObject.getString("cover_image"));
                                 }
 
-                                if (!cardObject.isNull("avatar_image")){
-                                    model.setProfilePicture(cardObject.getString("avatar_image"));
+                                if (!cardObject.isNull("logo_img")) {
+                                    model.setProfilePicture(cardObject.getString("logo_img"));
+                                    Log.d("sssss", "sssss" + cardObject.getString("logo_img"));
                                 }
 
-                                if (!cardObject.isNull("phone_number")){
+                                if (!cardObject.isNull("phone_number")) {
                                     String phoneNumber = cardObject.getString("phone_number");
                                     JSONObject jsonObject = new JSONObject(phoneNumber);
                                     model.setPhoneNumber1(jsonObject.getString("phone_number1"));
                                     model.setPhoneNumber2(jsonObject.getString("phone_number2"));
                                 }
 
-                                if (!cardObject.isNull("name")){
+                                if (!cardObject.isNull("name")) {
                                     model.setName(cardObject.getString("name"));
                                 }
-                                if (!cardObject.isNull("position")){
+                                if (!cardObject.isNull("position")) {
                                     model.setTitle(cardObject.getString("position"));
                                 }
-                                if (!cardObject.isNull("email")){
+                                if (!cardObject.isNull("email")) {
                                     model.setEmail(cardObject.getString("email"));
                                 }
-                                if (!cardObject.isNull("email")){
+                                if (!cardObject.isNull("email")) {
                                     model.setWebsite(cardObject.getString("website"));
                                 }
-                                if (!cardObject.isNull("address")){
+                                if (!cardObject.isNull("address")) {
                                     model.setAddress(cardObject.getString("address"));
                                 }
 
                                 model.setViewCardURL(cardObject.getString("slug"));
 
-                                shareUrl = model.setViewCardURL(cardObject.getString("slug"));
+//                                Log.d("ddddd", "dddd" + cardObject.getString("slug"));
                                 ImageView iv = new ImageView(getApplicationContext());
                                 models.add(model);
+
 
                             } catch (JSONException e) {
                                 e.printStackTrace();
