@@ -138,7 +138,6 @@ public class CameraActivity extends AppCompatActivity implements SurfaceHolder.C
                 }
             }
         });
-
     }
 
     private void selectImage() {
@@ -160,7 +159,7 @@ public class CameraActivity extends AppCompatActivity implements SurfaceHolder.C
                 String picturePath = c.getString(columnIndex);
                 c.close();
                 thumbnail = (BitmapFactory.decodeFile(picturePath));
-                Intent intent = new Intent(getApplicationContext(),UploadCardActivity.class);
+                Intent intent = new Intent(getApplicationContext(), UploadCardActivity.class);
                 startActivity(intent);
             }
         }
@@ -293,12 +292,12 @@ public class CameraActivity extends AppCompatActivity implements SurfaceHolder.C
         if (x == x) {
             p.setFlashMode(Camera.Parameters.FLASH_MODE_ON);
             camera.setParameters(p);
-        } else {
+        }
+        else if(x==y) {
             p.setFlashMode(Camera.Parameters.FLASH_MODE_OFF);
             camera.setParameters(p);
         }
-        if (!isFinishing())
-            AppProgressDialog.showProgressDialog(this, "Capturing...", false);
+        AppProgressDialog.showProgressDialog(this, "Capturing...", false);
 
         camera.takePicture(null, null, new Camera.PictureCallback() {
 

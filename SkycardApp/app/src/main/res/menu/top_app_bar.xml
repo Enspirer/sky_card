@@ -26,7 +26,7 @@
         android:title="Sky Promo"
         android:icon="@drawable/navi_skydaily" />
     <item
-        android:id="@+id/naviSkyNetwork"
+        android:id="@+id/naviSkyConnect"
         android:title="Sky Connect"
         android:icon="@drawable/navi_skynetwork" />
     <item

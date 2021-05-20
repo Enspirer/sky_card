@@ -91,7 +91,6 @@ public class MainActivity extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.rvSkyDaily);
         models = new ArrayList<>();
-//        skyDaily();
 
         topNavigationView = findViewById(R.id.nav_view);
         navHeader = topNavigationView.getHeaderView(0);
@@ -179,8 +178,8 @@ public class MainActivity extends AppCompatActivity {
                     startActivity(intent);
 
                 }
-                if (item.getItemId() == R.id.naviSkyNetwork) {
-                    Intent intent = new Intent(getApplicationContext(), ComingSoonActivity.class);
+                if (item.getItemId() == R.id.naviSkyConnect) {
+                    Intent intent = new Intent(getApplicationContext(), SkyConnectActivity.class);
                     startActivity(intent);
 
                 }
@@ -300,6 +299,7 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences sharedPref = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
         sharedPref.edit().remove("token").apply();
         saveLoginCheckBox.setChecked(false);
+
 
         Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
         startActivity(intent);
